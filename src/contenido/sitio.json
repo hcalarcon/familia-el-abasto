@@ -1,0 +1,41 @@
+{
+  "nombre": "Grupo El Abasto",
+  "ciudad": "San Martín de los Andes",
+  "dominio": "[Dominio del sitio]",
+  "historia": "En el centro de San Martín de los Andes, a metros de la Plaza Sarmiento, está El Abasto. Desde 2021 servimos platos absolutamente caseros.",
+  "locales": [
+    {
+      "nombre": "El Abasto",
+      "descripcion": "",
+      "direccion": "Av. San Martín 1234, San Martín de los Andes",
+      "telefono": "(02972) 42-1454",
+      "horario": "",
+      "menu": "https://elabasto-restaurant.smaalacarta.com.ar/",
+      "zapan": "https://zapan.app",
+      "instagram": "https://www.instagram.com/elabasto.restaurant/",
+      "facebook": "https://www.facebook.com/Elabasto.restaurant"
+    },
+    {
+      "nombre": "Luisa del Abasto",
+      "descripcion": "[Una línea sobre Luisa del Abasto]",
+      "direccion": "[Dirección de Luisa del Abasto]",
+      "telefono": "[Teléfono de Luisa del Abasto]",
+      "horario": "",
+      "menu": "https://luisa-del-abasto.smaalacarta.com.ar/",
+      "zapan": "https://zapan.app",
+      "instagram": "",
+      "facebook": ""
+    },
+    {
+      "nombre": "Las Barricas del Abasto",
+      "descripcion": "",
+      "direccion": "[Dirección de Las Barricas del Abasto]",
+      "telefono": "02972 423122",
+      "horario": "Todos los días de 12 a 00 h",
+      "menu": "",
+      "zapan": "https://zapan.app",
+      "instagram": "https://instagram.com/lasbarricasdelabasto",
+      "facebook": "https://facebook.com/lasbarricasdelabasto"
+    }
+  ]
+}
