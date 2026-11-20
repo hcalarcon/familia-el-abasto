@@ -1,0 +1,146 @@
+# Configuración de Pages CMS (https://pagescms.org).
+# El cliente entra con su cuenta de GitHub en https://app.pagescms.org,
+# elige este repositorio y edita estos archivos desde un panel simple.
+# Cada "Guardar" hace un commit y Cloudflare Pages publica solo.
+#
+# Los datos que todavía faltan van entre corchetes, por ejemplo
+# "[Dirección de Luisa del Abasto]". Mientras estén así no se muestran en la web.
+
+media:
+  input: public/fotos
+  output: /fotos
+  categories: [image]
+
+content:
+  - name: sitio
+    label: Datos del grupo y los locales
+    type: file
+    path: src/contenido/sitio.json
+    format: json
+    fields:
+      - name: nombre
+        label: Nombre del grupo
+        type: string
+        required: true
+      - name: ciudad
+        label: Ciudad
+        type: string
+        required: true
+      - name: dominio
+        label: Dominio de la web
+        type: string
+        description: Sólo de referencia. Por ejemplo elabasto.com.ar
+      - name: historia
+        label: Nuestra historia (texto corto)
+        type: text
+        required: true
+      - name: locales
+        label: Locales
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{nombre}"
+        fields:
+          - name: nombre
+            label: Nombre del local
+            type: string
+            required: true
+          - name: descripcion
+            label: Una línea sobre el local
+            type: string
+          - name: direccion
+            label: Dirección
+            type: string
+          - name: telefono
+            label: Teléfono
+            type: string
+            description: Como se tiene que ver, por ejemplo (02972) 42-1454. El link para llamar se arma solo.
+          - name: horario
+            label: Horario
+            type: string
+          - name: menu
+            label: Link al menú
+            type: string
+            description: Dirección completa, empezando con https://
+          - name: zapan
+            label: Link para pedir en Zapan
+            type: string
+            description: Dirección completa, empezando con https://
+          - name: instagram
+            label: Instagram
+            type: string
+            description: Dirección completa, empezando con https://
+          - name: facebook
+            label: Facebook
+            type: string
+            description: Dirección completa, empezando con https://
+
+  - name: en-construccion
+    label: Página "en construcción"
+    type: file
+    path: src/contenido/en-construccion.json
+    format: json
+    fields:
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: subtitulo
+        label: Frase a mano (debajo del título)
+        type: string
+      - name: mensaje
+        label: Mensaje
+        type: text
+
+  - name: carta-barricas
+    label: Carta de Las Barricas
+    type: file
+    path: src/contenido/carta-barricas.json
+    format: json
+    fields:
+      - name: categorias
+        label: Categorías
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{nombre}"
+        fields:
+          - name: nombre
+            label: Nombre de la categoría
+            type: string
+            required: true
+          - name: nota
+            label: Nota (opcional)
+            type: string
+          - name: grupos
+            label: Grupos de platos
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{titulo}"
+            fields:
+              - name: titulo
+                label: Título del grupo (opcional)
+                type: string
+              - name: platos
+                label: Platos
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{nombre}"
+                fields:
+                  - name: nombre
+                    label: Plato
+                    type: string
+                    required: true
+                  - name: descripcion
+                    label: Descripción (opcional)
+                    type: text
+                  - name: precio
+                    label: Precio
+                    type: string
+                    description: Por ejemplo $ 12.500. Si queda vacío se muestra "Consultar".
