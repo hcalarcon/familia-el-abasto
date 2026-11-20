@@ -89,7 +89,7 @@ const redes = sitio.locales.flatMap((local) =>
       <ul class="redes" role="list">
         {redes.map((r) => (
           <li>
-            <a href={r.url} rel="noopener">{r.red}<span class="pie__local"> · {r.local}</span></a>
+            <a href={r.url} rel="noopener">{r.red}<span class="pie__local">{` · ${r.local}`}</span></a>
           </li>
         ))}
       </ul>
@@ -158,8 +158,8 @@ const redes = sitio.locales.flatMap((local) =>
     background: var(--tarjeta);
     color: var(--pizarron);
     border-radius: 0.75rem;
-    border-top: 6px solid var(--vino);
-    padding: 1.25rem;
+    box-shadow: inset 0 6px 0 var(--vino);
+    padding: 1.5rem 1.25rem 1.25rem;
   }
   .local h3 {
     margin: 0 0 0.5rem;
@@ -235,10 +235,9 @@ const redes = sitio.locales.flatMap((local) =>
     gap: 0.25rem 1.25rem;
   }
   .redes a {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
     min-height: 44px;
-    padding-inline: 0.25rem;
+    padding: 0.625rem 0.25rem;
   }
   .pie__local { color: rgb(244 238 227 / 0.8); }
   .pie__ciudad { margin: 0; font-size: 0.875rem; color: rgb(244 238 227 / 0.8); }
