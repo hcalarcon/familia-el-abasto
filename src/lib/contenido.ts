@@ -43,7 +43,10 @@ export function esPendiente(valor: string | undefined): boolean {
  */
 export function linkTelefono(telefono: string): string | null {
   if (esPendiente(telefono)) return null;
-  const digitos = telefono.replace(/\D/g, '').replace(/^0/, '');
+  let digitos = telefono.replace(/\D/g, '');
+  // Si ya viene con código de país ("+54 9 2972 ..."), se usa tal cual.
+  if (telefono.trim().startsWith('+')) return digitos.length >= 10 ? `tel:+${digitos}` : null;
+  digitos = digitos.replace(/^0/, '');
   if (digitos.length < 8) return null;
   return `tel:+54${digitos}`;
 }
