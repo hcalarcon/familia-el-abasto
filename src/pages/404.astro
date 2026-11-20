@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { sitio } from '../lib/contenido';
+---
+<Base titulo={`Página no encontrada · ${sitio.nombre}`} descripcion="No encontramos esta página." indexar={false}>
+  <main class="no-encontrada">
+    <h1>No encontramos esta página</h1>
+    <p><a href="/">Volver al inicio de {sitio.nombre}</a></p>
+  </main>
+</Base>
+
+<style>
+  .no-encontrada { max-width: 36rem; margin: 0 auto; padding: 4rem 1rem; text-align: center; }
+  h1 { font-family: var(--fuente-titulo); font-weight: 400; color: var(--dorado); line-height: 1.15; }
+  a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+</style>
