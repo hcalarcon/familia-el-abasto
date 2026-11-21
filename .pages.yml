@@ -12,6 +12,107 @@ media:
   categories: [image]
 
 content:
+  - name: paginas
+    label: Páginas
+    type: collection
+    path: src/contenido/paginas
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      fields: [titulo, enMenu, borrador]
+      primary: titulo
+      sort: [orden, titulo]
+      default:
+        sort: orden
+        order: asc
+    fields:
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: descripcion
+        label: Descripción para Google
+        type: text
+        required: true
+        description: Una o dos oraciones. Es lo que aparece debajo del título en Google.
+        options:
+          maxlength: 200
+      - name: imagen
+        label: Foto principal (opcional)
+        type: image
+      - name: imagenAlt
+        label: Descripción de la foto
+        type: string
+        description: Qué se ve en la foto, para quien no la puede ver y para Google. Ej. "Salón de El Abasto con mesas de madera".
+      - name: enMenu
+        label: Mostrar en el menú de arriba
+        type: boolean
+        default: false
+      - name: orden
+        label: Orden en el menú
+        type: number
+        default: 10
+        description: Los números más chicos van primero.
+      - name: borrador
+        label: Borrador (no se publica)
+        type: boolean
+        default: false
+      - name: body
+        label: Contenido
+        type: rich-text
+        options:
+          format: markdown
+
+  - name: blog
+    label: Blog
+    type: collection
+    path: src/contenido/blog
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      fields: [titulo, fecha, borrador]
+      primary: titulo
+      sort: [fecha, titulo]
+      default:
+        sort: fecha
+        order: desc
+    fields:
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: descripcion
+        label: Resumen para Google y la lista del blog
+        type: text
+        required: true
+        options:
+          maxlength: 200
+      - name: fecha
+        label: Fecha
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: imagen
+        label: Foto principal (opcional)
+        type: image
+      - name: imagenAlt
+        label: Descripción de la foto
+        type: string
+      - name: borrador
+        label: Borrador (no se publica)
+        type: boolean
+        default: false
+      - name: body
+        label: Contenido
+        type: rich-text
+        options:
+          format: markdown
+
   - name: sitio
     label: Datos del grupo y los locales
     type: file
