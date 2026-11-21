@@ -5,7 +5,8 @@ Sitio estático hecho con [Astro](https://astro.build), publicado en Cloudflare 
 y editable por el cliente con [Pages CMS](https://pagescms.org).
 
 **Estado actual:** páginas provisorias "en construcción" en `/` y en `/menus` (la del QR),
-con la historia, los tres locales, sus menús, teléfonos y redes.
+con la historia, los tres locales, sus menús, teléfonos y redes. El admin ya puede crear
+páginas nuevas y notas de blog desde el panel.
 
 ## La ruta `/menus` no se cambia nunca
 
@@ -39,12 +40,38 @@ redirecciones hay que usar la vista previa de Cloudflare Pages.
 | Carta: `obtenerCarta()` hoy lee el JSON; mañana, el panel de Zapan | `src/lib/carta.ts` |
 | Fotos que sube el cliente | `public/fotos/` |
 | Redirecciones y cabeceras de Cloudflare | `public/_redirects`, `public/_headers` |
+| Páginas que crea el admin (cada archivo es `/<nombre>`) | `src/contenido/paginas/*.md` |
+| Notas del blog (cada archivo es `/blog/<nombre>`) | `src/contenido/blog/*.md` |
+| Esquema de páginas y blog | `src/content.config.ts` |
+| Sitemap, robots, `llms.txt`, `llms-full.txt` | `src/pages/*.ts` |
 | Panel de edición | `.pages.yml` |
 
 **Datos pendientes:** se escriben entre corchetes, por ejemplo `[Dirección de Luisa del Abasto]`.
 La web no muestra los datos que empiezan con `[`, así nunca aparece un corchete publicado.
 
 **Carta:** un plato sin precio se muestra como "Consultar".
+
+## Páginas y blog (autoadministrable)
+
+Desde el panel, el admin puede:
+
+- **Crear una página nueva** (sección "Páginas"): queda en `https://[dominio]/<nombre-de-la-página>`.
+  Con "Mostrar en el menú de arriba" aparece en el menú de navegación.
+- **Escribir una nota** (sección "Blog"): queda en `https://[dominio]/blog/<nombre-de-la-nota>`.
+- Marcar **Borrador** para guardar sin publicar.
+
+Hay direcciones reservadas que una página no puede usar (`menus`, `blog`, `barricas`, `qr`, etc.).
+Si alguien lo intenta, el build falla con un mensaje claro y la web publicada sigue como estaba.
+
+## Google y modelos de IA
+
+- `/sitemap.xml` y `robots.txt` (con el link al sitemap) se arman solos con cada página y nota.
+- `/llms.txt` y `/llms-full.txt` resumen el sitio y su texto completo para modelos de IA ([llmstxt.org](https://llmstxt.org)).
+- Cada página lleva datos estructurados schema.org: los tres restaurantes con dirección, teléfono,
+  menú y redes en el inicio y en `/menus`, y `BlogPosting` en cada nota.
+- **Importante:** hasta que se cargue el dominio en "Datos del grupo" el sitemap queda vacío
+  y no hay URLs canónicas. Después de publicarlo, dar de alta el sitio en
+  [Google Search Console](https://search.google.com/search-console) y enviar `https://[dominio]/sitemap.xml`.
 
 ## Publicar en Cloudflare Pages
 
