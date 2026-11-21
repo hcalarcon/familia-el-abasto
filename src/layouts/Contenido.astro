@@ -1,4 +1,5 @@
 ---
+import { rutaLimpia } from '../lib/rutas';
 // Layout de las páginas y notas que crea el admin: fondo claro, menú arriba y pie con datos.
 import Base from './Base.astro';
 import { sitio, linkTelefono, esPendiente } from '../lib/contenido';
@@ -14,7 +15,7 @@ const enlaces = [
   ...paginas.filter((p) => p.data.enMenu).map((p) => ({ texto: p.data.titulo, href: `/${p.id}` })),
   ...(notas.length ? [{ texto: 'Blog', href: '/blog' }] : []),
 ];
-const actual = Astro.url.pathname.replace(/\/$/, '') || '/';
+const actual = rutaLimpia(Astro.url.pathname);
 const locales = sitio.locales.map((l) => ({
   nombre: l.nombre,
   direccion: esPendiente(l.direccion) ? '' : l.direccion,

@@ -12,9 +12,10 @@ const site = dominio && !dominio.startsWith('[') ? `https://${dominio}` : undefi
 export default defineConfig({
   site,
   output: 'static',
-  trailingSlash: 'ignore',
+  trailingSlash: 'never',
   build: {
-    // /menus queda como /menus/index.html: Cloudflare lo sirve en /menus.
-    format: 'directory',
+    // /menus queda como menus.html: Cloudflare Pages lo sirve directo en /menus,
+    // sin redirigir a /menus/ (el QR impreso no tiene barra final).
+    format: 'file',
   },
 });

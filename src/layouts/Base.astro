@@ -1,4 +1,5 @@
 ---
+import { rutaLimpia } from '../lib/rutas';
 interface Props {
   titulo: string;
   descripcion: string;
@@ -21,7 +22,7 @@ const {
   datosEstructurados,
 } = Astro.props;
 
-const canonica = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const canonica = Astro.site ? new URL(rutaLimpia(Astro.url.pathname), Astro.site).href : undefined;
 const imagenAbsoluta = imagen && Astro.site ? new URL(imagen, Astro.site).href : undefined;
 // "</" dentro del JSON cerraría el <script>: se escapa.
 const jsonLd = datosEstructurados ? JSON.stringify(datosEstructurados).replace(/</g, '\\u003c') : undefined;

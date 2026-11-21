@@ -1,4 +1,5 @@
 ---
+import { rutaLimpia } from '../../lib/rutas';
 // Notas del blog que crea el admin desde el panel (src/contenido/blog/*.md).
 import { render } from 'astro:content';
 import Contenido from '../../layouts/Contenido.astro';
@@ -15,7 +16,7 @@ export async function getStaticPaths() {
 const { nota } = Astro.props as { nota: Nota };
 const { Content } = await render(nota);
 const { titulo, descripcion, fecha, imagen, imagenAlt } = nota.data;
-const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const url = Astro.site ? new URL(rutaLimpia(Astro.url.pathname), Astro.site).href : undefined;
 const imagenAbsoluta = imagen && Astro.site ? new URL(imagen, Astro.site).href : undefined;
 ---
 <Contenido
