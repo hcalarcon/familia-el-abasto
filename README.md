@@ -4,14 +4,15 @@ Web de El Abasto, Luisa del Abasto y Las Barricas del Abasto (San Martín de los
 Sitio estático hecho con [Astro](https://astro.build), publicado en Cloudflare Pages
 y editable por el cliente con [Pages CMS](https://pagescms.org).
 
-**Estado actual:** página provisoria "en construcción" en `/`, con la historia,
-los tres locales, sus menús, teléfonos y redes.
+**Estado actual:** páginas provisorias "en construcción" en `/` y en `/menus` (la del QR),
+con la historia, los tres locales, sus menús, teléfonos y redes.
 
 ## La ruta `/menus` no se cambia nunca
 
 El QR impreso en los folletos apunta a `https://[dominio]/menus`. Esa dirección
 tiene que funcionar siempre: no se renombra, no se borra y no se mueve.
-Mientras la web está en construcción, `/menus` redirige al inicio (ver `public/_redirects`).
+Mientras la web está en construcción, `/menus` muestra los menús de los tres locales
+(`src/pages/menus.astro`). `/menu`, `/menú`, `/qr` y `/carta` redirigen a `/menus` (ver `public/_redirects`).
 
 ## Levantarlo en local
 

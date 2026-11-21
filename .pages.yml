@@ -83,7 +83,11 @@ content:
     format: json
     fields:
       - name: titulo
-        label: Título
+        label: Título del inicio (/)
+        type: string
+        required: true
+      - name: tituloMenus
+        label: Título de la página del QR (/menus)
         type: string
         required: true
       - name: subtitulo

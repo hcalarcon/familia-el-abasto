@@ -25,6 +25,7 @@ export interface Sitio {
 
 export interface EnConstruccion {
   titulo: string;
+  tituloMenus: string;
   subtitulo: string;
   mensaje: string;
 }
