@@ -3,12 +3,19 @@
 // Todo el texto sale de src/contenido/.
 import Base from '../layouts/Base.astro';
 import { sitio, enConstruccion, esPendiente, linkTelefono } from '../lib/contenido';
+import { obtenerPaginas, obtenerNotas } from '../lib/publicaciones';
+import { datosDelGrupo } from '../lib/seo';
 
 interface Props {
   /** "inicio" para /, "menus" para /menus (la entrada del QR). */
   pantalla: 'inicio' | 'menus';
 }
 const { pantalla } = Astro.props;
+const [paginas, notas] = await Promise.all([obtenerPaginas(), obtenerNotas()]);
+const masEnlaces = [
+  ...paginas.filter((p) => p.data.enMenu).map((p) => ({ texto: p.data.titulo, href: `/${p.id}` })),
+  ...(notas.length ? [{ texto: 'Blog', href: '/blog' }] : []),
+];
 const titulo = pantalla === 'menus' ? enConstruccion.tituloMenus : enConstruccion.titulo;
 
 // Los datos entre corchetes siguen pendientes: no se muestran en la web.
@@ -36,7 +43,7 @@ const redes = sitio.locales.flatMap((local) =>
 <Base
   titulo={pantalla === 'menus' ? `Menús · ${sitio.nombre}` : `${sitio.nombre} · ${sitio.ciudad}`}
   descripcion={`${sitio.historia} ${enConstruccion.mensaje}`}
-  indexar={false}
+  datosEstructurados={datosDelGrupo(Astro.site)}
 >
   <header class="portada">
     <p class="marca">
@@ -107,6 +114,13 @@ const redes = sitio.locales.flatMap((local) =>
           </li>
         ))}
       </ul>
+      {masEnlaces.length > 0 && (
+        <nav aria-label="Más del grupo">
+          <ul class="redes" role="list">
+            {masEnlaces.map((e) => <li><a href={e.href}>{e.texto}</a></li>)}
+          </ul>
+        </nav>
+      )}
       <p class="pie__ciudad">{sitio.ciudad}</p>
     </footer>
   )}

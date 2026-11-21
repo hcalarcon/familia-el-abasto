@@ -2,10 +2,29 @@
 interface Props {
   titulo: string;
   descripcion: string;
-  /** Mientras la web esté en construcción no queremos que Google la indexe a medias. */
   indexar?: boolean;
+  /** "pizarron": fondo oscuro (portadas). "papel": fondo claro (páginas y blog, para leer cómodo). */
+  tema?: 'pizarron' | 'papel';
+  /** Foto para compartir en redes (ruta tipo /fotos/salon.jpg). */
+  imagen?: string;
+  tipo?: 'website' | 'article';
+  /** Datos estructurados schema.org (JSON-LD) para Google y los modelos de IA. */
+  datosEstructurados?: Record<string, unknown>;
 }
-const { titulo, descripcion, indexar = true } = Astro.props;
+const {
+  titulo,
+  descripcion,
+  indexar = true,
+  tema = 'pizarron',
+  imagen,
+  tipo = 'website',
+  datosEstructurados,
+} = Astro.props;
+
+const canonica = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imagenAbsoluta = imagen && Astro.site ? new URL(imagen, Astro.site).href : undefined;
+// "</" dentro del JSON cerraría el <script>: se escapa.
+const jsonLd = datosEstructurados ? JSON.stringify(datosEstructurados).replace(/</g, '\\u003c') : undefined;
 ---
 <!doctype html>
 <html lang="es-AR">
@@ -15,15 +34,24 @@ const { titulo, descripcion, indexar = true } = Astro.props;
     <title>{titulo}</title>
     <meta name="description" content={descripcion} />
     {!indexar && <meta name="robots" content="noindex" />}
-    <meta name="theme-color" content="#1c211e" />
+    {canonica && <link rel="canonical" href={canonica} />}
+    <meta name="theme-color" content={tema === 'papel' ? '#f4eee3' : '#1c211e'} />
+    <meta property="og:type" content={tipo} />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    {canonica && <meta property="og:url" content={canonica} />}
+    {imagenAbsoluta && <meta property="og:image" content={imagenAbsoluta} />}
+    <link rel="alternate" type="text/plain" title="Resumen para modelos de IA" href="/llms.txt" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@600&family=Work+Sans:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@600&family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap"
     />
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
   </head>
-  <body>
+  <body class={`tema-${tema}`}>
     <slot />
   </body>
 </html>
@@ -34,26 +62,28 @@ const { titulo, descripcion, indexar = true } = Astro.props;
     --papel: #f4eee3;
     --tarjeta: #fffaf2;
     --vino: #7d2a33;
+    --vino-oscuro: #5f1f27;
     --dorado: #e3b766;
     --texto-suave: #4a4f4b;
     --fuente-titulo: 'Alfa Slab One', Georgia, serif;
     --fuente-texto: 'Work Sans', system-ui, sans-serif;
     --fuente-mano: 'Caveat', cursive;
-    color-scheme: dark;
   }
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    background: var(--pizarron);
-    color: var(--papel);
     font-family: var(--fuente-texto);
     font-size: 1rem;
     line-height: 1.55;
     overflow-wrap: break-word;
   }
+  .tema-pizarron { background: var(--pizarron); color: var(--papel); color-scheme: dark; }
+  .tema-papel { background: var(--papel); color: var(--pizarron); color-scheme: light; }
   a { color: inherit; }
+  img { max-width: 100%; height: auto; }
   :focus-visible { outline: 3px solid var(--dorado); outline-offset: 3px; }
+  .tema-papel :focus-visible { outline-color: var(--vino); }
   .visualmente-oculto {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
