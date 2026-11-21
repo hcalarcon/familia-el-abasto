@@ -131,6 +131,18 @@ content:
         label: Dominio de la web
         type: string
         description: Sólo de referencia. Por ejemplo elabasto.com.ar
+      - name: lema
+        label: Frase debajo del nombre
+        type: string
+      - name: firma
+        label: Frase a mano (dorada)
+        type: string
+      - name: logo
+        label: Logo (blanco, fondo transparente)
+        type: image
+      - name: logoAlt
+        label: Descripción del logo
+        type: string
       - name: historia
         label: Nuestra historia (texto corto)
         type: text
@@ -147,9 +159,34 @@ content:
             label: Nombre del local
             type: string
             required: true
-          - name: descripcion
-            label: Una línea sobre el local
+          - name: nombreCorto
+            label: Nombre corto (botones de redes)
             type: string
+          - name: linea
+            label: Línea de la tarjeta
+            type: string
+            description: Se ve debajo del nombre. Ej. "Av. San Martín 1234 · a metros de la Plaza Sarmiento"
+          - name: descripcion
+            label: Descripción para Google
+            type: string
+          - name: foto
+            label: Foto de la tarjeta
+            type: image
+          - name: fotoAlt
+            label: Descripción de la foto
+            type: string
+            description: Qué se ve en la foto. Ej. "Salón con la barra y el pizarrón"
+          - name: logo
+            label: Logo redondo (opcional)
+            type: image
+          - name: logoAlt
+            label: Descripción del logo
+            type: string
+          - name: textoMenu
+            label: Texto del botón del menú
+            type: string
+            description: Ej. "Ver menú" o "Ver carta"
+            default: Ver menú
           - name: direccion
             label: Dirección
             type: string
@@ -167,7 +204,7 @@ content:
           - name: zapan
             label: Link para pedir en Zapan
             type: string
-            description: Dirección completa, empezando con https://
+            description: Dirección completa, empezando con https://. Si queda vacío, el segundo botón es "Reservar" con el teléfono.
           - name: instagram
             label: Instagram
             type: string
@@ -178,25 +215,31 @@ content:
             description: Dirección completa, empezando con https://
 
   - name: en-construccion
-    label: Página "en construcción"
+    label: Página "en construcción" (/ y /menus)
     type: file
     path: src/contenido/en-construccion.json
     format: json
     fields:
-      - name: titulo
-        label: Título del inicio (/)
+      - name: aviso
+        label: Aviso debajo del título
         type: string
-        required: true
-      - name: tituloMenus
-        label: Título de la página del QR (/menus)
+        description: Si queda vacío no se muestra.
+      - name: tituloLocales
+        label: Título sobre los restaurantes
         type: string
-        required: true
-      - name: subtitulo
-        label: Frase a mano (debajo del título)
+      - name: historiaTitulo
+        label: Botón de historia, título
         type: string
-      - name: mensaje
-        label: Mensaje
-        type: text
+      - name: historiaBajada
+        label: Botón de historia, bajada
+        type: string
+      - name: historiaLink
+        label: Botón de historia, link
+        type: string
+        description: Dirección de la página, por ejemplo /nuestra-historia
+      - name: tituloRedes
+        label: Título sobre las redes
+        type: string
 
   - name: carta-barricas
     label: Carta de Las Barricas

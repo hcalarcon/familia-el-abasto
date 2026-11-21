@@ -5,10 +5,21 @@ import enConstruccionJson from '../contenido/en-construccion.json';
 
 export interface Local {
   nombre: string;
+  /** Nombre corto para los botones de redes ("Las Barricas"). */
+  nombreCorto: string;
+  /** Línea que se ve en la tarjeta del local. */
+  linea: string;
+  /** Descripción para Google y modelos de IA. */
   descripcion: string;
   direccion: string;
   telefono: string;
   horario: string;
+  foto: string;
+  fotoAlt: string;
+  logo: string;
+  logoAlt: string;
+  /** "Ver menú" o "Ver carta". */
+  textoMenu: string;
   menu: string;
   zapan: string;
   instagram: string;
@@ -19,15 +30,21 @@ export interface Sitio {
   nombre: string;
   ciudad: string;
   dominio: string;
+  lema: string;
+  firma: string;
+  logo: string;
+  logoAlt: string;
   historia: string;
   locales: Local[];
 }
 
 export interface EnConstruccion {
-  titulo: string;
-  tituloMenus: string;
-  subtitulo: string;
-  mensaje: string;
+  aviso: string;
+  tituloLocales: string;
+  historiaTitulo: string;
+  historiaBajada: string;
+  historiaLink: string;
+  tituloRedes: string;
 }
 
 export const sitio: Sitio = sitioJson;

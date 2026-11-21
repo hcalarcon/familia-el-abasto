@@ -5,7 +5,12 @@ Sitio estático hecho con [Astro](https://astro.build), publicado en Cloudflare 
 y editable por el cliente con [Pages CMS](https://pagescms.org).
 
 **Estado actual:** páginas provisorias "en construcción" en `/` y en `/menus` (la del QR),
-con la historia, los tres locales, sus menús, teléfonos y redes. El admin ya puede crear
+con el estilo de la entrada del QR del diseño aprobado: logo, los tres locales con foto,
+menús, Zapan, reservas, "Nuestra historia" y redes.
+
+> **Fotos y logos provisorios:** los de `public/fotos/` se recortaron del PDF del diseño
+> (`El Abasto web nueva.pdf`). Reemplazarlos por los originales de la carpeta `fotos/`
+> del cliente desde el panel (mismo nombre o cambiando la foto de cada local). El admin ya puede crear
 páginas nuevas y notas de blog desde el panel.
 
 ## La ruta `/menus` no se cambia nunca
