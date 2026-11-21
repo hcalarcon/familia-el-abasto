@@ -221,25 +221,9 @@ content:
     format: json
     fields:
       - name: aviso
-        label: Aviso debajo del título
+        label: Aviso debajo del nombre
         type: string
         description: Si queda vacío no se muestra.
-      - name: tituloLocales
-        label: Título sobre los restaurantes
-        type: string
-      - name: historiaTitulo
-        label: Botón de historia, título
-        type: string
-      - name: historiaBajada
-        label: Botón de historia, bajada
-        type: string
-      - name: historiaLink
-        label: Botón de historia, link
-        type: string
-        description: Dirección de la página, por ejemplo /nuestra-historia
-      - name: tituloRedes
-        label: Título sobre las redes
-        type: string
 
   - name: carta-barricas
     label: Carta de Las Barricas

@@ -1,6 +1,6 @@
 {
-  "name": "web-grupo-el-abasto",
-  "description": "Web del Grupo El Abasto (San Martín de los Andes)",
+  "name": "familia-el-abasto",
+  "description": "Web de Familia El Abasto (San Martín de los Andes)",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

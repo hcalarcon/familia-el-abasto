@@ -1,12 +1,12 @@
-# Web del Grupo El Abasto
+# Web de Familia El Abasto
 
-Web de El Abasto, Luisa del Abasto y Las Barricas del Abasto (San Martín de los Andes).
+Web de Familia El Abasto: El Abasto, Luisa del Abasto y Las Barricas del Abasto (San Martín de los Andes).
 Sitio estático hecho con [Astro](https://astro.build), publicado en Cloudflare Pages
 y editable por el cliente con [Pages CMS](https://pagescms.org).
 
-**Estado actual:** páginas provisorias "en construcción" en `/` y en `/menus` (la del QR),
-con el estilo de la entrada del QR del diseño aprobado: logo, los tres locales con foto,
-menús, Zapan, reservas, "Nuestra historia" y redes.
+**Estado actual:** `/` y `/menus` (la del QR) muestran solo un hero "en construcción":
+logo, "Familia El Abasto" y un aviso editable. Los datos de los locales ya están cargados
+para las pantallas definitivas.
 
 > **Fotos y logos provisorios:** los de `public/fotos/` se recortaron del PDF del diseño
 > (`El Abasto web nueva.pdf`). Reemplazarlos por los originales de la carpeta `fotos/`

@@ -40,11 +40,6 @@ export interface Sitio {
 
 export interface EnConstruccion {
   aviso: string;
-  tituloLocales: string;
-  historiaTitulo: string;
-  historiaBajada: string;
-  historiaLink: string;
-  tituloRedes: string;
 }
 
 export const sitio: Sitio = sitioJson;
