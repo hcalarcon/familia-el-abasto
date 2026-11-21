@@ -3,7 +3,7 @@
 // Sigue el estilo de la entrada del QR del diseño aprobado. Todo el texto sale de src/contenido/.
 import Base from '../layouts/Base.astro';
 import { sitio, enConstruccion, esPendiente, linkTelefono } from '../lib/contenido';
-import { obtenerNotas } from '../lib/publicaciones';
+import { obtenerNotas, obtenerPaginas } from '../lib/publicaciones';
 import { datosDelGrupo } from '../lib/seo';
 
 interface Props {
@@ -11,7 +11,20 @@ interface Props {
   pantalla: 'inicio' | 'menus';
 }
 const { pantalla } = Astro.props;
-const notas = await obtenerNotas();
+const [paginas, notas] = await Promise.all([obtenerPaginas(), obtenerNotas()]);
+
+// El botón de historia solo se muestra si su link existe (evita mandar a un 404).
+const rutasInternas = new Set(['/', '/menus', ...paginas.map((p) => `/${p.id}`), ...(notas.length ? ['/blog'] : [])]);
+const historiaLink = (enConstruccion.historiaLink ?? '').trim().replace(/(.)\/$/, '$1');
+const mostrarHistoria = !!historiaLink && (!historiaLink.startsWith('/') || rutasInternas.has(historiaLink));
+
+// Páginas que el admin marcó "en el menú" (sin repetir la de historia) y el blog.
+const masEnlaces = [
+  ...paginas
+    .filter((p) => p.data.enMenu && `/${p.id}` !== historiaLink)
+    .map((p) => ({ texto: p.data.titulo, href: `/${p.id}` })),
+  ...(notas.length ? [{ texto: 'Blog', href: '/blog' }] : []),
+];
 
 // Los datos entre corchetes siguen pendientes: no se muestran en la web.
 const mostrar = (valor: string | undefined) => (esPendiente(valor) ? '' : (valor ?? '').trim());
@@ -110,8 +123,8 @@ const logo = mostrar(sitio.logo);
       ))}
     </ul>
 
-    {mostrar(enConstruccion.historiaLink) && (
-      <a class="historia" href={enConstruccion.historiaLink}>
+    {mostrarHistoria && (
+      <a class="historia" href={historiaLink}>
         <span>
           <span class="historia__titulo">{enConstruccion.historiaTitulo}</span>
           <span class="historia__bajada">{enConstruccion.historiaBajada}</span>
@@ -120,8 +133,12 @@ const logo = mostrar(sitio.logo);
       </a>
     )}
 
-    {notas.length > 0 && (
-      <p class="blog"><a href="/blog">Leé nuestro blog</a></p>
+    {masEnlaces.length > 0 && (
+      <nav class="mas" aria-label="Más del grupo">
+        <ul role="list">
+          {masEnlaces.map((e) => <li><a href={e.href}>{e.texto}</a></li>)}
+        </ul>
+      </nav>
     )}
 
     {redes.length > 0 && (
@@ -297,8 +314,9 @@ const logo = mostrar(sitio.logo);
   .historia__titulo { display: block; font-family: var(--fuente-titulo); font-size: 1.35rem; line-height: 1.2; }
   .historia__bajada { display: block; margin-top: 0.15rem; color: rgb(244 238 227 / 0.85); }
 
-  .blog { margin-top: -0.75rem; margin-bottom: 1.5rem; }
-  .blog a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--vino); }
+  .mas { margin-top: -0.75rem; margin-bottom: 1.25rem; }
+  .mas ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
+  .mas a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--vino); }
 
   .redes {
     list-style: none;
