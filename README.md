@@ -16,7 +16,7 @@ El admin ya puede crear páginas nuevas y notas de blog desde el panel.
 
 ## La ruta `/menus` no se cambia nunca
 
-El QR impreso en los folletos apunta a `https://[dominio]/menus`. Esa dirección
+El QR impreso en los folletos apunta a `https://elabastorestaurant.com.ar/menus`. Esa dirección
 tiene que funcionar siempre: no se renombra, no se borra y no se mueve.
 Mientras la web está en construcción, `/menus` muestra los menús de los tres locales
 (`src/pages/menus.astro`). `/menu`, `/menú`, `/qr` y `/carta` redirigen a `/menus` (ver `public/_redirects`).
@@ -61,9 +61,9 @@ La web no muestra los datos que empiezan con `[`, así nunca aparece un corchete
 
 Desde el panel, el admin puede:
 
-- **Crear una página nueva** (sección "Páginas"): queda en `https://[dominio]/<nombre-de-la-página>`.
+- **Crear una página nueva** (sección "Páginas"): queda en `https://elabastorestaurant.com.ar/<nombre-de-la-página>`.
   Con "Mostrar en el menú de arriba" aparece en el menú de navegación.
-- **Escribir una nota** (sección "Blog"): queda en `https://[dominio]/blog/<nombre-de-la-nota>`.
+- **Escribir una nota** (sección "Blog"): queda en `https://elabastorestaurant.com.ar/blog/<nombre-de-la-nota>`.
 - Marcar **Borrador** para guardar sin publicar.
 
 Hay direcciones reservadas que una página no puede usar (`menus`, `blog`, `barricas`, `qr`, etc.).
@@ -77,7 +77,7 @@ Si alguien lo intenta, el build falla con un mensaje claro y la web publicada si
   menú y redes en el inicio y en `/menus`, y `BlogPosting` en cada nota.
 - **Importante:** hasta que se cargue el dominio en "Datos del grupo" el sitemap queda vacío
   y no hay URLs canónicas. Después de publicarlo, dar de alta el sitio en
-  [Google Search Console](https://search.google.com/search-console) y enviar `https://[dominio]/sitemap.xml`.
+  [Google Search Console](https://search.google.com/search-console) y enviar `https://elabastorestaurant.com.ar/sitemap.xml`.
 
 ## Publicar en Cloudflare Pages
 
@@ -97,11 +97,11 @@ Si alguien lo intenta, el build falla con un mensaje claro y la web publicada si
 El dominio está registrado en nic.ar y sus DNS ya están en Cloudflare.
 
 1. En el proyecto de Pages: **Custom domains** → **Set up a custom domain**.
-2. Escribir `[dominio]` y confirmar. Como el DNS está en la misma cuenta de
+2. Escribir `elabastorestaurant.com.ar` y confirmar. Como el DNS está en la misma cuenta de
    Cloudflare, el registro se crea solo.
-3. Repetir con `www.[dominio]`.
+3. Repetir con `www.elabastorestaurant.com.ar`.
 4. Esperar que el certificado figure como **Active** (suele tardar unos minutos).
-5. Probar `https://[dominio]/menus` desde el celular, escaneando un folleto.
+5. Probar `https://elabastorestaurant.com.ar/menus` desde el celular, escaneando un folleto.
 
 ## Editar el contenido (Pages CMS)
 
