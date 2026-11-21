@@ -10,8 +10,9 @@ para las pantallas definitivas.
 
 > **Fotos y logos provisorios:** los de `public/fotos/` se recortaron del PDF del diseño
 > (`El Abasto web nueva.pdf`). Reemplazarlos por los originales de la carpeta `fotos/`
-> del cliente desde el panel (mismo nombre o cambiando la foto de cada local). El admin ya puede crear
-páginas nuevas y notas de blog desde el panel.
+> del cliente desde el panel (mismo nombre o cambiando la foto de cada local).
+
+El admin ya puede crear páginas nuevas y notas de blog desde el panel.
 
 ## La ruta `/menus` no se cambia nunca
 
