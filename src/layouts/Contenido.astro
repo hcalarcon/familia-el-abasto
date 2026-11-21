@@ -1,0 +1,105 @@
+---
+// Layout de las páginas y notas que crea el admin: fondo claro, menú arriba y pie con datos.
+import Base from './Base.astro';
+import { sitio, linkTelefono, esPendiente } from '../lib/contenido';
+import { obtenerPaginas, obtenerNotas } from '../lib/publicaciones';
+
+import type { ComponentProps } from 'astro/types';
+type Props = Omit<ComponentProps<typeof Base>, 'tema'>;
+const props = Astro.props;
+
+const [paginas, notas] = await Promise.all([obtenerPaginas(), obtenerNotas()]);
+const enlaces = [
+  { texto: 'Menús', href: '/menus' },
+  ...paginas.filter((p) => p.data.enMenu).map((p) => ({ texto: p.data.titulo, href: `/${p.id}` })),
+  ...(notas.length ? [{ texto: 'Blog', href: '/blog' }] : []),
+];
+const actual = Astro.url.pathname.replace(/\/$/, '') || '/';
+const locales = sitio.locales.map((l) => ({
+  nombre: l.nombre,
+  direccion: esPendiente(l.direccion) ? '' : l.direccion,
+  telefono: esPendiente(l.telefono) ? '' : l.telefono,
+  tel: linkTelefono(l.telefono),
+}));
+---
+<Base {...props} tema="papel">
+  <a class="saltar" href="#contenido">Ir al contenido</a>
+  <header class="encabezado">
+    <div class="encabezado__interior">
+      <a class="logo" href="/">
+        <span class="logo__grupo">Grupo</span>
+        <span class="logo__nombre">El Abasto</span>
+      </a>
+      <nav aria-label="Principal">
+        <ul role="list">
+          {enlaces.map((e) => (
+            <li>
+              <a href={e.href} aria-current={actual === e.href || actual.startsWith(`${e.href}/`) ? 'page' : undefined}>
+                {e.texto}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenido">
+    <slot />
+  </main>
+
+  <footer class="pie">
+    <div class="pie__interior">
+      <ul class="pie__locales" role="list">
+        {locales.map((l) => (
+          <li>
+            <strong>{l.nombre}</strong>
+            {l.direccion && <span>{l.direccion}</span>}
+            {l.telefono && (l.tel ? <a href={l.tel}>{l.telefono}</a> : <span>{l.telefono}</span>)}
+          </li>
+        ))}
+      </ul>
+      <p class="pie__ciudad">{sitio.nombre} · {sitio.ciudad}</p>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .saltar {
+    position: absolute; left: 1rem; top: -4rem; z-index: 10;
+    background: var(--vino); color: var(--papel); padding: 0.75rem 1rem; border-radius: 0.5rem;
+  }
+  .saltar:focus { top: 1rem; }
+
+  .encabezado { background: var(--pizarron); color: var(--papel); }
+  .encabezado__interior, .pie__interior {
+    max-width: 68rem; margin-inline: auto; padding-inline: 1rem;
+  }
+  .encabezado__interior {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 0.25rem 1.5rem; padding-block: 0.75rem;
+  }
+  .logo { text-decoration: none; line-height: 1; display: inline-block; padding-block: 0.25rem; }
+  .logo__grupo { display: block; font-family: var(--fuente-mano); font-size: 1.15rem; color: var(--dorado); }
+  .logo__nombre { display: block; font-family: var(--fuente-titulo); font-size: 1.6rem; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+  nav a {
+    display: inline-flex; align-items: center; min-height: 44px;
+    font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent;
+  }
+  nav a:hover { border-bottom-color: var(--dorado); }
+  nav a[aria-current='page'] { color: var(--dorado); border-bottom-color: var(--dorado); }
+
+  .contenido { max-width: 44rem; margin-inline: auto; padding: 2.5rem 1rem 4rem; }
+
+  .pie { background: var(--pizarron); color: var(--papel); }
+  .pie__interior { padding-block: 2rem; }
+  .pie__locales {
+    list-style: none; margin: 0 0 1.5rem; padding: 0;
+    display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .pie__locales li { display: flex; flex-direction: column; }
+  .pie__locales strong { font-family: var(--fuente-titulo); font-weight: 400; color: var(--dorado); font-size: 1.1rem; }
+  .pie__locales a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+  .pie__ciudad { margin: 0; font-size: 0.875rem; color: rgb(244 238 227 / 0.8); }
+</style>

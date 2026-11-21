@@ -1,0 +1,54 @@
+---
+// Cuerpo de una página o nota del blog: título, foto opcional y el texto en Markdown.
+interface Props {
+  titulo: string;
+  imagen?: string;
+  imagenAlt?: string;
+}
+const { titulo, imagen, imagenAlt } = Astro.props;
+---
+<article class="articulo">
+  <header>
+    <slot name="antes-del-titulo" />
+    <h1>{titulo}</h1>
+    <slot name="despues-del-titulo" />
+  </header>
+  {imagen && (
+    <img class="articulo__foto" src={imagen} alt={imagenAlt ?? ''} loading="eager" decoding="async" />
+  )}
+  <div class="prosa">
+    <slot />
+  </div>
+</article>
+
+<style>
+  h1 {
+    margin: 0 0 0.75rem;
+    font-family: var(--fuente-titulo);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 7vw, 2.75rem);
+    line-height: 1.1;
+    color: var(--vino);
+    text-wrap: balance;
+  }
+  .articulo__foto {
+    display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: 0.75rem; margin: 1rem 0 1.5rem;
+  }
+  .prosa { font-size: 1.0625rem; line-height: 1.7; }
+  .prosa :global(h2), .prosa :global(h3) {
+    font-family: var(--fuente-titulo); font-weight: 400; line-height: 1.15; color: var(--vino);
+    margin: 2rem 0 0.75rem;
+  }
+  .prosa :global(h2) { font-size: 1.6rem; }
+  .prosa :global(h3) { font-size: 1.3rem; }
+  .prosa :global(p), .prosa :global(ul), .prosa :global(ol) { margin: 0 0 1.1rem; }
+  .prosa :global(a) { color: var(--vino); font-weight: 600; }
+  .prosa :global(img) { border-radius: 0.5rem; margin-block: 0.5rem; }
+  .prosa :global(blockquote) {
+    margin: 1.5rem 0; padding: 0.25rem 0 0.25rem 1rem; border-left: 4px solid var(--vino);
+    font-style: italic; color: var(--texto-suave);
+  }
+  .prosa :global(table) { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
+  .prosa :global(th), .prosa :global(td) { padding: 0.5rem; border-bottom: 1px solid #d9d0c1; text-align: left; }
+</style>

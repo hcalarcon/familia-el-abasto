@@ -1,0 +1,54 @@
+---
+import Contenido from '../../layouts/Contenido.astro';
+import { obtenerNotas, formatearFecha, fechaISO } from '../../lib/publicaciones';
+import { sitio } from '../../lib/contenido';
+
+const notas = await obtenerNotas();
+---
+<Contenido
+  titulo={`Blog · ${sitio.nombre}`}
+  descripcion={`Novedades, recetas e historias de ${sitio.nombre}, en ${sitio.ciudad}.`}
+  indexar={notas.length > 0}
+>
+  <h1>Blog</h1>
+  {notas.length === 0 ? (
+    <p>Todavía no hay notas publicadas.</p>
+  ) : (
+    <ul class="notas" role="list">
+      {notas.map((nota) => (
+        <li class="nota">
+          {nota.data.imagen && (
+            <img src={nota.data.imagen} alt={nota.data.imagenAlt ?? ''} loading="lazy" decoding="async" />
+          )}
+          <div>
+            <time datetime={fechaISO(nota.data.fecha)}>{formatearFecha(nota.data.fecha)}</time>
+            <h2><a href={`/blog/${nota.id}`}>{nota.data.titulo}</a></h2>
+            <p>{nota.data.descripcion}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</Contenido>
+
+<style>
+  h1 {
+    margin: 0 0 1.5rem; font-family: var(--fuente-titulo); font-weight: 400;
+    font-size: clamp(1.9rem, 7vw, 2.75rem); line-height: 1.1; color: var(--vino);
+  }
+  .notas { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
+  .nota {
+    background: var(--tarjeta); border-radius: 0.75rem; overflow: hidden;
+    box-shadow: inset 0 4px 0 var(--vino);
+  }
+  .nota img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .nota div { padding: 1.25rem; }
+  .nota time { font-size: 0.875rem; color: var(--texto-suave); }
+  .nota h2 {
+    margin: 0.25rem 0 0.5rem; font-family: var(--fuente-titulo); font-weight: 400;
+    font-size: 1.4rem; line-height: 1.15;
+  }
+  .nota h2 a { color: var(--vino); text-decoration: none; }
+  .nota h2 a:hover { text-decoration: underline; }
+  .nota p { margin: 0; }
+</style>

@@ -1,0 +1,22 @@
+---
+// Páginas que crea el admin desde el panel (src/contenido/paginas/*.md).
+import { render } from 'astro:content';
+import Contenido from '../layouts/Contenido.astro';
+import Articulo from '../componentes/Articulo.astro';
+import { obtenerPaginas, type Pagina } from '../lib/publicaciones';
+import { sitio } from '../lib/contenido';
+
+export async function getStaticPaths() {
+  const paginas = await obtenerPaginas();
+  return paginas.map((pagina) => ({ params: { slug: pagina.id }, props: { pagina } }));
+}
+
+const { pagina } = Astro.props as { pagina: Pagina };
+const { Content } = await render(pagina);
+const { titulo, descripcion, imagen, imagenAlt } = pagina.data;
+---
+<Contenido titulo={`${titulo} · ${sitio.nombre}`} descripcion={descripcion} imagen={imagen || undefined}>
+  <Articulo titulo={titulo} imagen={imagen || undefined} imagenAlt={imagenAlt}>
+    <Content />
+  </Articulo>
+</Contenido>
