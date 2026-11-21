@@ -1,0 +1,23 @@
+---
+// Página que solo redirige a otra. Hace falta en hostings sin _redirects (GitHub Pages).
+// En Cloudflare Pages, public/_redirects resuelve antes y esta página no se llega a usar.
+interface Props {
+  destino: string;
+}
+const { destino } = Astro.props;
+---
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirigiendo…</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${destino}`} />
+    <link rel="canonical" href={destino} />
+    <style>body{margin:0;padding:2rem 1rem;background:#1c211e;color:#f4eee3;font-family:system-ui,sans-serif;text-align:center}a{color:#e3b766}</style>
+  </head>
+  <body>
+    <p><a href={destino}>Ir a los menús</a></p>
+  </body>
+</html>

@@ -79,6 +79,32 @@ Si alguien lo intenta, el build falla con un mensaje claro y la web publicada si
   y no hay URLs canónicas. Después de publicarlo, dar de alta el sitio en
   [Google Search Console](https://search.google.com/search-console) y enviar `https://elabastorestaurant.com.ar/sitemap.xml`.
 
+## Publicación provisoria en GitHub Pages
+
+Mientras se termina de configurar Cloudflare Pages, el sitio se publica con GitHub Pages
+(`.github/workflows/github-pages.yml`, en cada push a `main`).
+
+1. El repo tiene que ser **público**, o la cuenta tener GitHub Pro (Pages no anda en repos privados del plan gratis).
+2. GitHub → repo → **Settings → Pages** → Source: **GitHub Actions**.
+3. En Custom domain: `elabastorestaurant.com.ar` → Save. Cuando el certificado esté listo, marcar **Enforce HTTPS**.
+4. DNS en Cloudflare (todos en **DNS only**, nube gris):
+
+   | Tipo | Nombre | Valor |
+   | --- | --- | --- |
+   | A | `@` | `185.199.108.153` |
+   | A | `@` | `185.199.109.153` |
+   | A | `@` | `185.199.110.153` |
+   | A | `@` | `185.199.111.153` |
+   | AAAA | `@` | `2606:50c0:8000::153` |
+   | AAAA | `@` | `2606:50c0:8001::153` |
+   | AAAA | `@` | `2606:50c0:8002::153` |
+   | AAAA | `@` | `2606:50c0:8003::153` |
+   | CNAME | `www` | `hcalarcon.github.io` |
+
+GitHub Pages no lee `_redirects`: por eso `/menu`, `/qr` y `/carta` también existen como
+páginas que redirigen a `/menus` (`src/pages/menu.astro`, etc.).
+Al pasar a Cloudflare Pages: borrar los registros de arriba y desactivar Pages en GitHub.
+
 ## Publicar en Cloudflare Pages
 
 1. Subir este repositorio a GitHub, en la cuenta del cliente.
