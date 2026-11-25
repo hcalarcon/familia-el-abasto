@@ -26,7 +26,7 @@ function restaurante(local: Local) {
   };
 }
 
-/** Organización del grupo con sus tres restaurantes. Va en el inicio y en /menus. */
+/** Organización del grupo con sus tres restaurantes. Va en el inicio y en /cartas. */
 export function datosDelGrupo(site?: URL) {
   return {
     '@context': 'https://schema.org',

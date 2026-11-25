@@ -15,7 +15,7 @@ export async function obtenerIndice(): Promise<Entrada[]> {
   const [paginas, notas] = await Promise.all([obtenerPaginas(), obtenerNotas()]);
   return [
     { ruta: '/', titulo: sitio.nombre, descripcion: sitio.historia, tipo: 'principal' },
-    { ruta: '/menus', titulo: 'Menús de los tres locales', descripcion: `Menús, teléfonos y reservas de ${sitio.locales.map((l) => l.nombre).join(', ')}.`, tipo: 'principal' },
+    { ruta: '/cartas', titulo: 'Cartas de los tres locales', descripcion: `Cartas, teléfonos y reservas de ${sitio.locales.map((l) => l.nombre).join(', ')}.`, tipo: 'principal' },
     ...paginas.map((p) => ({ ruta: `/${p.id}`, titulo: p.data.titulo, descripcion: p.data.descripcion, tipo: 'pagina' as const, cuerpo: p.body })),
     ...(notas.length ? [{ ruta: '/blog', titulo: 'Blog', descripcion: `Notas de ${sitio.nombre}.`, tipo: 'principal' as const }] : []),
     ...notas.map((n) => ({ ruta: `/blog/${n.id}`, titulo: n.data.titulo, descripcion: n.data.descripcion, fecha: fechaISO(n.data.fecha), tipo: 'nota' as const, cuerpo: n.body })),

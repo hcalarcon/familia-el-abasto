@@ -4,7 +4,7 @@ Web de Familia El Abasto: El Abasto, Luisa del Abasto y Las Barricas del Abasto 
 Sitio estático hecho con [Astro](https://astro.build), publicado en Cloudflare Pages
 y editable por el cliente con [Pages CMS](https://pagescms.org).
 
-**Estado actual:** `/` y `/menus` (la del QR) muestran solo un hero "en construcción":
+**Estado actual:** `/` y `/cartas` (la del QR) muestran solo un hero "en construcción":
 logo, "Familia El Abasto" y un aviso editable. Los datos de los locales ya están cargados
 para las pantallas definitivas.
 
@@ -14,12 +14,12 @@ para las pantallas definitivas.
 
 El admin ya puede crear páginas nuevas y notas de blog desde el panel.
 
-## La ruta `/menus` no se cambia nunca
+## La ruta `/cartas` no se cambia nunca
 
-El QR impreso en los folletos apunta a `https://elabastorestaurant.com.ar/menus`. Esa dirección
+El QR impreso en los folletos apunta a `https://elabastorestaurant.com.ar/cartas`. Esa dirección
 tiene que funcionar siempre: no se renombra, no se borra y no se mueve.
-Mientras la web está en construcción, `/menus` muestra los menús de los tres locales
-(`src/pages/menus.astro`). `/menu`, `/menú`, `/qr` y `/carta` redirigen a `/menus` (ver `public/_redirects`).
+`/menus` (la ruta anterior), `/menu`, `/menú`, `/qr` y `/carta` redirigen a `/cartas`
+(`public/_redirects` en Cloudflare, y páginas de redirección en `src/pages/` para hostings sin `_redirects`).
 
 ## Levantarlo en local
 
@@ -66,7 +66,7 @@ Desde el panel, el admin puede:
 - **Escribir una nota** (sección "Blog"): queda en `https://elabastorestaurant.com.ar/blog/<nombre-de-la-nota>`.
 - Marcar **Borrador** para guardar sin publicar.
 
-Hay direcciones reservadas que una página no puede usar (`menus`, `blog`, `barricas`, `qr`, etc.).
+Hay direcciones reservadas que una página no puede usar (`cartas`, `menus`, `blog`, `barricas`, `qr`, etc.).
 Si alguien lo intenta, el build falla con un mensaje claro y la web publicada sigue como estaba.
 
 ## Google y modelos de IA
@@ -74,7 +74,7 @@ Si alguien lo intenta, el build falla con un mensaje claro y la web publicada si
 - `/sitemap.xml` y `robots.txt` (con el link al sitemap) se arman solos con cada página y nota.
 - `/llms.txt` y `/llms-full.txt` resumen el sitio y su texto completo para modelos de IA ([llmstxt.org](https://llmstxt.org)).
 - Cada página lleva datos estructurados schema.org: los tres restaurantes con dirección, teléfono,
-  menú y redes en el inicio y en `/menus`, y `BlogPosting` en cada nota.
+  menú y redes en el inicio y en `/cartas`, y `BlogPosting` en cada nota.
 - **Importante:** hasta que se cargue el dominio en "Datos del grupo" el sitemap queda vacío
   y no hay URLs canónicas. Después de publicarlo, dar de alta el sitio en
   [Google Search Console](https://search.google.com/search-console) y enviar `https://elabastorestaurant.com.ar/sitemap.xml`.
@@ -99,10 +99,10 @@ Mientras se termina de configurar Cloudflare Pages, el sitio se publica con GitH
    | AAAA | `@` | `2606:50c0:8001::153` |
    | AAAA | `@` | `2606:50c0:8002::153` |
    | AAAA | `@` | `2606:50c0:8003::153` |
-   | CNAME | `www` | `hcalarcon.github.io` |
+   | CNAME | `www` | `familiaelabasto.github.io` |
 
 GitHub Pages no lee `_redirects`: por eso `/menu`, `/qr` y `/carta` también existen como
-páginas que redirigen a `/menus` (`src/pages/menu.astro`, etc.).
+páginas que redirigen a `/cartas` (`src/pages/menu.astro`, etc.).
 Al pasar a Cloudflare Pages: borrar los registros de arriba y desactivar Pages en GitHub.
 
 ## Publicar en Cloudflare Pages
@@ -127,7 +127,7 @@ El dominio está registrado en nic.ar y sus DNS ya están en Cloudflare.
    Cloudflare, el registro se crea solo.
 3. Repetir con `www.elabastorestaurant.com.ar`.
 4. Esperar que el certificado figure como **Active** (suele tardar unos minutos).
-5. Probar `https://elabastorestaurant.com.ar/menus` desde el celular, escaneando un folleto.
+5. Probar `https://elabastorestaurant.com.ar/cartas` desde el celular, escaneando un folleto.
 
 ## Editar el contenido (Pages CMS)
 

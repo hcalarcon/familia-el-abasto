@@ -1,15 +1,17 @@
 # Redirecciones de Cloudflare Pages (se aplican en orden, la primera que coincide gana,
 # y tienen prioridad sobre las páginas del sitio).
 #
-# IMPORTANTE: /menus va impreso en el QR de los folletos. Esa ruta no se cambia nunca
+# IMPORTANTE: /cartas va impreso en el QR de los folletos. Esa ruta no se cambia nunca
 # y nunca se redirige a otro lado.
 
-# Variantes que alguien puede tipear a mano
-/menu          /menus  301
-/menu/         /menus  301
-/men%C3%BA     /menus  301
-/men%C3%BA/    /menus  301
-/qr            /menus  301
-/qr/           /menus  301
-/carta         /menus  301
-/carta/        /menus  301
+# Variantes que alguien puede tipear a mano (o la ruta anterior, /menus)
+/menus         /cartas  301
+/menus/        /cartas  301
+/menu          /cartas  301
+/menu/         /cartas  301
+/men%C3%BA     /cartas  301
+/men%C3%BA/    /cartas  301
+/qr            /cartas  301
+/qr/           /cartas  301
+/carta         /cartas  301
+/carta/        /cartas  301

@@ -215,7 +215,7 @@ content:
             description: Dirección completa, empezando con https://
 
   - name: en-construccion
-    label: Página "en construcción" (/ y /menus)
+    label: Página "en construcción" (/ y /cartas)
     type: file
     path: src/contenido/en-construccion.json
     format: json

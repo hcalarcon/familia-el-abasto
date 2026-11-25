@@ -7,10 +7,10 @@ export type Nota = CollectionEntry<'blog'>;
 
 /**
  * Rutas que ya usa el sitio. Una página del admin no puede llamarse así,
- * porque taparía (o quedaría tapada por) una ruta fija. /menus va en el QR impreso.
+ * porque taparía (o quedaría tapada por) una ruta fija. /cartas va en el QR impreso.
  */
 export const RUTAS_RESERVADAS = new Set([
-  'menus', 'menu', 'qr', 'carta', 'barricas', 'blog', 'fotos', '404',
+  'cartas', 'menus', 'menu', 'qr', 'carta', 'barricas', 'blog', 'fotos', '404',
   'sitemap.xml', 'robots.txt', 'llms.txt', 'llms-full.txt',
 ]);
 

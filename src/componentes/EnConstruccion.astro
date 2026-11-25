@@ -1,13 +1,13 @@
 ---
-// Pantalla provisoria "en construcción", compartida por / y /menus:
+// Pantalla provisoria "en construcción", compartida por / y /cartas:
 // solo el hero con el logo, el nombre y un aviso. El texto sale de src/contenido/.
 import Base from '../layouts/Base.astro';
 import { sitio, enConstruccion, esPendiente } from '../lib/contenido';
 import { datosDelGrupo } from '../lib/seo';
 
 interface Props {
-  /** "inicio" para /, "menus" para /menus (la entrada del QR). */
-  pantalla: 'inicio' | 'menus';
+  /** "inicio" para /, "cartas" para /cartas (la entrada del QR). */
+  pantalla: 'inicio' | 'cartas';
 }
 const { pantalla } = Astro.props;
 
@@ -16,7 +16,7 @@ const logo = mostrar(sitio.logo);
 const aviso = mostrar(enConstruccion.aviso);
 ---
 <Base
-  titulo={pantalla === 'menus' ? `Menús · ${sitio.nombre}` : `${sitio.nombre} · ${sitio.ciudad}`}
+  titulo={pantalla === 'cartas' ? `Cartas · ${sitio.nombre}` : `${sitio.nombre} · ${sitio.ciudad}`}
   descripcion={`${sitio.nombre}, ${sitio.ciudad}. ${sitio.historia}`}
   datosEstructurados={datosDelGrupo(Astro.site)}
 >

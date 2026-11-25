@@ -11,7 +11,7 @@ const props = Astro.props;
 
 const [paginas, notas] = await Promise.all([obtenerPaginas(), obtenerNotas()]);
 const enlaces = [
-  { texto: 'Menús', href: '/menus' },
+  { texto: 'Cartas', href: '/cartas' },
   ...paginas.filter((p) => p.data.enMenu).map((p) => ({ texto: p.data.titulo, href: `/${p.id}` })),
   ...(notas.length ? [{ texto: 'Blog', href: '/blog' }] : []),
 ];
