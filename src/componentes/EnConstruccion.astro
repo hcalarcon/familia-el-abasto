@@ -14,6 +14,9 @@ const { pantalla } = Astro.props;
 const mostrar = (valor: string | undefined) => (esPendiente(valor) ? '' : (valor ?? '').trim());
 const logo = mostrar(sitio.logo);
 const aviso = mostrar(enConstruccion.aviso);
+// Acción principal mientras la web está en construcción: ir a las cartas.
+const botonCartas = mostrar(enConstruccion.botonCartas) || 'Ver las cartas';
+const linkCartas = mostrar(enConstruccion.linkCartas) || '/cartas';
 ---
 <Base
   titulo={pantalla === 'cartas' ? `Cartas · ${sitio.nombre}` : `${sitio.nombre} · ${sitio.ciudad}`}
@@ -24,6 +27,7 @@ const aviso = mostrar(enConstruccion.aviso);
     {logo && <img class="hero__logo" src={logo} alt={mostrar(sitio.logoAlt)} width="140" height="131" />}
     <h1>{sitio.nombre}</h1>
     {aviso && <p class="hero__aviso">{aviso}</p>}
+    <a class="hero__boton" href={linkCartas}>{botonCartas}</a>
   </main>
 </Base>
 
@@ -50,12 +54,27 @@ const aviso = mostrar(enConstruccion.aviso);
     line-height: 1.1;
     text-wrap: balance;
   }
+  /* El aviso es solo informativo: texto suave, sin recuadro (el único pill es el botón). */
   .hero__aviso {
     margin: 0;
-    padding: 0.4rem 1rem;
-    border: 1px solid rgb(227 183 102 / 0.6);
-    border-radius: 999px;
     font-size: 0.9375rem;
-    color: var(--papel);
+    color: rgb(244 238 227 / 0.75);
   }
+  /* Mismo estilo que los botones de redes de /cartas. */
+  .hero__boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgb(227 183 102 / 0.55);
+    border-radius: 999px;
+    color: var(--papel);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .hero__boton:is(:hover, :focus-visible) { background: rgb(227 183 102 / 0.12); border-color: var(--dorado); }
+  .hero__boton:focus-visible { outline: 3px solid var(--dorado); outline-offset: 3px; }
 </style>

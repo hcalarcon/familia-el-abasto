@@ -241,6 +241,16 @@ content:
         label: Link del botón de historia
         type: string
         description: Una página del sitio, ej. /nuestra-historia. Si la página no existe, el botón no se muestra.
+      - name: webTitulo
+        label: Título del botón de la web
+        type: string
+      - name: webBajada
+        label: Texto chico del botón de la web
+        type: string
+      - name: webLink
+        label: Link del botón de la web
+        type: string
+        description: La página principal del sitio, ej. /. Si queda vacío, el botón no se muestra.
 
   - name: en-construccion
     label: Página "en construcción" (/)
@@ -252,6 +262,14 @@ content:
         label: Aviso debajo del nombre
         type: string
         description: Si queda vacío no se muestra.
+      - name: botonCartas
+        label: Texto del botón a las cartas
+        type: string
+        description: Ej. "Ver las cartas". Si queda vacío, se usa "Ver las cartas" (el botón siempre está, para no dejar a nadie sin salida).
+      - name: linkCartas
+        label: Link del botón a las cartas
+        type: string
+        description: Conviene dejarlo en /cartas, que es la página del QR. Si queda vacío, lleva a /cartas.
 
   - name: carta-barricas
     label: Carta de Las Barricas

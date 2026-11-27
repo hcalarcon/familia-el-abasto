@@ -11,10 +11,16 @@ const [paginas, notas] = await Promise.all([obtenerPaginas(), obtenerNotas()]);
 // Los datos entre corchetes siguen pendientes: no se muestran en la web.
 const mostrar = (valor: string | undefined) => (esPendiente(valor) ? '' : (valor ?? '').trim());
 
-// El botón de historia solo se muestra si su link existe (evita mandar a un 404).
+// Los enlaces de abajo ("Nuestra historia", la web) solo se muestran si su link existe (evita mandar a un 404).
 const rutasInternas = new Set(['/', '/cartas', ...paginas.map((p) => `/${p.id}`), ...(notas.length ? ['/blog'] : [])]);
-const historiaLink = mostrar(cartas.historiaLink).replace(/(.)\/$/, '$1');
-const mostrarHistoria = !!historiaLink && (!historiaLink.startsWith('/') || rutasInternas.has(historiaLink));
+const linkValido = (valor: string | undefined) => {
+  const link = mostrar(valor).replace(/(.)\/$/, '$1');
+  return link && (!link.startsWith('/') || rutasInternas.has(link)) ? link : '';
+};
+const masEnlaces = [
+  { titulo: mostrar(cartas.historiaTitulo) || 'Nuestra historia', bajada: mostrar(cartas.historiaBajada), link: linkValido(cartas.historiaLink) },
+  { titulo: mostrar(cartas.webTitulo) || 'Conocé Familia El Abasto', bajada: mostrar(cartas.webBajada), link: linkValido(cartas.webLink) },
+].filter((e) => e.link);
 
 const locales = sitio.locales.map((local) => {
   const tel = linkTelefono(local.telefono);
@@ -142,14 +148,22 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
       </ul>
     </section>
 
-    {mostrarHistoria && (
-      <a class="historia" href={historiaLink}>
-        <span>
-          <span class="historia__titulo">{cartas.historiaTitulo}</span>
-          {mostrar(cartas.historiaBajada) && <span class="historia__bajada">{cartas.historiaBajada}</span>}
-        </span>
-        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-      </a>
+    {masEnlaces.length > 0 && (
+      <nav class="mas" aria-label="Más de Familia El Abasto">
+        <ul role="list">
+          {masEnlaces.map((e) => (
+            <li>
+              <a class="historia" href={e.link}>
+                <span>
+                  <span class="historia__titulo">{e.titulo}</span>
+                  {e.bajada && <span class="historia__bajada">{e.bajada}</span>}
+                </span>
+                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     )}
   </main>
 
@@ -361,12 +375,20 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
   /* El teléfono no se parte en dos renglones. */
   .boton__dato { display: block; font-size: 0.8125rem; font-weight: 400; white-space: nowrap; }
 
+  /* Los enlaces de abajo van apilados como un grupo. */
+  .mas { margin-bottom: 1.5rem; }
+  .mas ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
   .historia {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.5rem;
     padding: 1.1rem 1.25rem;
     background: var(--pizarron);
     color: var(--papel);
