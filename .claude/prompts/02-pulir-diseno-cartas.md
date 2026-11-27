@@ -1,4 +1,4 @@
-Estado: pendiente
+Estado: hecho (2026-11-27, commit 3f167f6)
 
 # 02 · Pulir el diseño de /cartas
 
@@ -26,10 +26,10 @@ Reservar por teléfono en Las Barricas y Zapan propio por local.
 4. Medir con Lighthouse (Chrome DevTools, modo móvil) sobre `npm run build && npm run preview`: Performance, Accessibility, Best Practices y SEO ≥ 95.
 
 ## Terminado cuando
-- [ ] Capturas en 375 y 1280 px mostradas en el chat.
-- [ ] Lighthouse ≥ 95 en las cuatro categorías.
-- [ ] Verificador: ✅
-- [ ] Rama mergeada a `dev` (`git switch dev && git merge --no-ff pulir-cartas`) y borrada. **Sin push.**
+- [x] Capturas en 375 y 1280 px mostradas en el chat.
+- [x] Lighthouse ≥ 95 en las cuatro categorías.
+- [x] Verificador: ✅
+- [x] Rama mergeada a `dev` (`git switch dev && git merge --no-ff pulir-cartas`) y borrada. **Sin push.**
 
 ## No tocar
 - La ruta `/cartas`, las redirecciones y los textos del cliente (salen de `src/contenido/`).
