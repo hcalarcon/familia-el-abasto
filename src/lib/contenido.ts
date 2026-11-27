@@ -13,10 +13,22 @@ export interface Local {
   /** Descripción para Google y modelos de IA. */
   descripcion: string;
   direccion: string;
+  /** Ciudad del local ("San Martín de los Andes"). Si falta, se usa la ciudad del grupo. */
+  ciudad: string;
+  /** Provincia del local ("Neuquén"). */
+  provincia: string;
+  /** Código postal del local ("Q8370"). */
+  codigoPostal: string;
   /** Link de Google Maps. Si queda vacío se arma solo con el nombre y la dirección. */
   mapa: string;
   telefono: string;
+  /** Horario como se lee en la web ("Todos los días de 12 a 00 h"). */
   horario: string;
+  /**
+   * Horario para Google, en formato schema.org. Ej. "Mo-Su 12:00-24:00".
+   * Si no respeta el formato no se publica.
+   */
+  horarioSchema: string;
   foto: string;
   fotoAlt: string;
   logo: string;

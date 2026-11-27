@@ -191,6 +191,18 @@ content:
             label: Dirección
             type: string
             description: Calle y número, ciudad. Ej. "Av. San Martín 1234, San Martín de los Andes". Se ve en el chip de ubicación.
+          - name: ciudad
+            label: Ciudad del local
+            type: string
+            description: Ej. "San Martín de los Andes". Es para Google; si queda vacío se usa la ciudad del grupo.
+          - name: provincia
+            label: Provincia del local
+            type: string
+            description: Ej. "Neuquén". Es para Google.
+          - name: codigoPostal
+            label: Código postal del local
+            type: string
+            description: Ej. "Q8370". Es para Google.
           - name: mapa
             label: Link de Google Maps (opcional)
             type: string
@@ -202,6 +214,11 @@ content:
           - name: horario
             label: Horario
             type: string
+            description: Como se lee en la web. Ej. "Todos los días de 12 a 00 h".
+          - name: horarioSchema
+            label: Horario para Google
+            type: string
+            description: 'Distinto del horario de arriba: este lo lee Google y va en un formato fijo. Días en inglés abreviados (Mo Tu We Th Fr Sa Su) y horas de 24 h. Ej. "Mo-Su 12:00-24:00" (todos los días de 12 a 00 h). Si cierra después de medianoche, la hora de cierre es la del día siguiente, ej. "Mo-Su 11:00-02:00". Varios horarios se separan con coma, ej. "Mo-Fr 12:00-16:00, Sa-Su 12:00-24:00". Si no respeta el formato, no se publica.'
           - name: menu
             label: Link al menú
             type: string
