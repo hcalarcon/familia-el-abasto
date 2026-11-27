@@ -1,4 +1,4 @@
-Estado: pendiente
+Estado: hecho (2026-11-27, commit a064ab6)
 
 # 03 · SEO local y datos para IA (base)
 
@@ -26,6 +26,6 @@ listo para sumar en el futuro la sucursal de Buenos Aires sin rehacer nada.
 7. Pedirle a Herni los links exactos de Google Maps (o Google Business Profile) de cada local y cargarlos en `mapa`.
 
 ## Terminado cuando
-- [ ] JSON-LD de `/` y `/cartas` sin errores en https://validator.schema.org
-- [ ] `llms.txt` lista los tres locales completos.
-- [ ] Verificador: ✅
+- [ ] JSON-LD de `/` y `/cartas` sin errores en https://validator.schema.org (validado en local; falta pasarlo por el validador con la URL publicada)
+- [x] `llms.txt` lista los tres locales completos.
+- [x] Verificador: ✅
