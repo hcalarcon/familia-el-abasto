@@ -44,12 +44,9 @@ const jsonLd = datosEstructurados ? JSON.stringify(datosEstructurados).replace(/
     {canonica && <meta property="og:url" content={canonica} />}
     {imagenAbsoluta && <meta property="og:image" content={imagenAbsoluta} />}
     <link rel="alternate" type="text/plain" title="Resumen para modelos de IA" href="/llms.txt" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@600&family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap"
-    />
+    {/* Fuentes servidas desde el propio sitio (public/fuentes/). Se precargan las dos que se ven primero. */}
+    <link rel="preload" href="/fuentes/alfa-slab-one-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fuentes/work-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
     {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
   </head>
   <body class={`tema-${tema}`}>
@@ -58,6 +55,39 @@ const jsonLd = datosEstructurados ? JSON.stringify(datosEstructurados).replace(/
 </html>
 
 <style is:global>
+  /* Fuentes locales (subset latín, woff2). */
+  @font-face {
+    font-family: 'Alfa Slab One';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fuentes/alfa-slab-one-400.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fuentes/caveat-600.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url('/fuentes/work-sans-variable.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Work Sans';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fuentes/work-sans-italic-400.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
   :root {
     --pizarron: #1c211e;
     --papel: #f4eee3;

@@ -98,7 +98,7 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
               )}
               <div class="local__cuerpo">
                 <div class="local__encabezado">
-                  {local.logo && <img class="local__logo" src={local.logo} alt={local.logoAlt} width="56" height="56" loading="lazy" />}
+                  {local.logo && <img class="local__logo" src={local.logo} alt={local.logoAlt} width="56" height="56" loading={i === 0 ? 'eager' : 'lazy'} />}
                   <div>
                     <h3 id={`local-${i}`}>{local.nombre}</h3>
                     {local.linea && <p class="local__linea">{local.linea}</p>}
@@ -212,7 +212,11 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
     text-decoration: none;
     transition: background-color 0.15s ease, border-color 0.15s ease;
   }
-  .redes a:hover { background: rgb(227 183 102 / 0.12); border-color: var(--dorado); }
+  .redes a:is(:hover, :focus-visible) { background: rgb(227 183 102 / 0.12); border-color: var(--dorado); }
+
+  /* Foco visible: sobre el pizarrón de la portada, dorado (el vino del tema papel casi no se ve). */
+  .portada :focus-visible { outline-color: var(--dorado); }
+  .redes a:focus-visible { outline: 3px solid var(--dorado); outline-offset: 3px; }
 
   .cuerpo {
     background: var(--papel);
@@ -291,13 +295,45 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
     text-decoration: none;
     transition: background-color 0.15s ease;
   }
-  .chip:hover { background: #e6d9c3; }
+  .chip:is(:hover, :focus-visible) { background: #e6d9c3; }
+  .chip:focus-visible { outline: 3px solid var(--vino); outline-offset: 3px; }
 
   .local__acciones {
     margin-top: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
     gap: 0.6rem;
+  }
+
+  /* Con subgrid, las tarjetas de una misma fila comparten filas: foto, encabezado, ubicación y botones
+     quedan a la misma altura aunque un local tenga logo o una línea más larga. Sin subgrid, queda el
+     flex de arriba (los botones igual van abajo de todo por el margin-top: auto).
+     Va después de .local y .local__cuerpo para pisar su display: flex (misma especificidad). */
+  @supports (grid-template-rows: subgrid) {
+    .locales > li {
+      display: grid;
+      grid-row: span 4;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+    .local {
+      display: grid;
+      grid-row: 1 / -1;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+    .local__foto { grid-row: 1; }
+    .local__cuerpo {
+      display: grid;
+      grid-row: 2 / -1;
+      grid-template-rows: subgrid;
+      row-gap: 0.85rem;
+      align-content: start;
+    }
+    .local__encabezado { grid-row: 1; align-self: start; }
+    .local__ubicacion { grid-row: 2; }
+    /* Abajo de todo lo sigue empujando el margin-top: auto (align-self: end lo achicaba en Chrome). */
+    .local__acciones { grid-row: 3; }
   }
   .boton {
     display: inline-flex;
@@ -316,12 +352,14 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
     transition: background-color 0.15s ease, color 0.15s ease;
   }
   .boton--oscuro { background: var(--pizarron); color: var(--papel); }
-  .boton--oscuro:hover { background: #333a35; }
+  .boton--oscuro:is(:hover, :focus-visible) { background: #333a35; }
   .boton--vino { background: var(--vino); color: var(--papel); }
-  .boton--vino:hover { background: var(--vino-oscuro); }
+  .boton--vino:is(:hover, :focus-visible) { background: var(--vino-oscuro); }
   .boton--borde { border-color: var(--pizarron); color: var(--pizarron); background: transparent; }
-  .boton--borde:hover { background: var(--pizarron); color: var(--papel); }
-  .boton__dato { display: block; font-size: 0.8125rem; font-weight: 400; }
+  .boton--borde:is(:hover, :focus-visible) { background: var(--pizarron); color: var(--papel); }
+  .boton:focus-visible { outline: 3px solid var(--vino); outline-offset: 3px; }
+  /* El teléfono no se parte en dos renglones. */
+  .boton__dato { display: block; font-size: 0.8125rem; font-weight: 400; white-space: nowrap; }
 
   .historia {
     display: flex;
@@ -335,7 +373,9 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
     border-radius: 0.9rem;
     text-decoration: none;
   }
-  .historia:hover svg { transform: translateX(3px); }
+  .historia:is(:hover, :focus-visible) svg { transform: translateX(3px); }
+  /* El contorno cae afuera del recuadro, sobre el papel: ahí el que se ve es el vino (el dorado no). */
+  .historia:focus-visible { outline: 3px solid var(--vino); outline-offset: 3px; }
   .historia svg { flex: none; transition: transform 0.15s ease; }
   .historia__titulo { display: block; font-family: var(--fuente-titulo); font-size: 1.35rem; line-height: 1.2; }
   .historia__bajada { display: block; margin-top: 0.15rem; color: rgb(244 238 227 / 0.85); }
