@@ -1,24 +1,30 @@
 // Datos estructurados (schema.org) a partir del contenido editable.
 // Ayudan a Google y a los modelos de IA a entender quiénes son, dónde están y cómo contactarlos.
-import { sitio, esPendiente, type Local } from './contenido';
+import { sitio, esPendiente, linkMapa, linkTelefono, type Local } from './contenido';
 
 const valor = (v: string) => (esPendiente(v) ? undefined : v.trim());
 
-function restaurante(local: Local) {
+function restaurante(local: Local, site?: URL) {
   const direccion = valor(local.direccion);
   const redes = [valor(local.instagram), valor(local.facebook)].filter(Boolean);
+  const foto = valor(local.foto);
+  const tel = linkTelefono(local.telefono);
   return {
     '@type': 'Restaurant',
     name: local.nombre,
     description: valor(local.descripcion),
-    telephone: valor(local.telefono),
+    image: foto && site ? new URL(foto, site).href : undefined,
+    telephone: tel ? tel.replace('tel:', '') : undefined,
     hasMenu: valor(local.menu),
+    hasMap: linkMapa(local) ?? undefined,
+    acceptsReservations: tel ? 'True' : undefined,
     sameAs: redes.length ? redes : undefined,
     address: direccion
       ? {
           '@type': 'PostalAddress',
           streetAddress: direccion.split(',')[0].trim(),
           addressLocality: sitio.ciudad,
+          postalCode: 'Q8370',
           addressRegion: 'Neuquén',
           addressCountry: 'AR',
         }
@@ -34,7 +40,7 @@ export function datosDelGrupo(site?: URL) {
     name: sitio.nombre,
     description: sitio.historia,
     url: site?.href,
-    subOrganization: sitio.locales.map(restaurante),
+    subOrganization: sitio.locales.map((local) => restaurante(local, site)),
   };
 }
 

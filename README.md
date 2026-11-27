@@ -4,9 +4,9 @@ Web de Familia El Abasto: El Abasto, Luisa del Abasto y Las Barricas del Abasto 
 Sitio estático hecho con [Astro](https://astro.build), publicado en Cloudflare Pages
 y editable por el cliente con [Pages CMS](https://pagescms.org).
 
-**Estado actual:** `/` y `/cartas` (la del QR) muestran solo un hero "en construcción":
-logo, "Familia El Abasto" y un aviso editable. Los datos de los locales ya están cargados
-para las pantallas definitivas.
+**Estado actual:** `/cartas` (la del QR) ya tiene el diseño definitivo: redes arriba y una tarjeta
+por local con chip de ubicación (Google Maps), menú, Zapan o reserva por teléfono.
+`/` sigue con un hero "en construcción": logo, "Familia El Abasto" y un aviso editable.
 
 > **Fotos y logos provisorios:** los de `public/fotos/` se recortaron del PDF del diseño
 > (`El Abasto web nueva.pdf`). Reemplazarlos por los originales de la carpeta `fotos/`
@@ -41,6 +41,7 @@ redirecciones hay que usar la vista previa de Cloudflare Pages.
 | --- | --- |
 | Textos, locales, teléfonos, links y redes | `src/contenido/sitio.json` |
 | Textos de la página en construcción | `src/contenido/en-construccion.json` |
+| Textos de `/cartas` (títulos y botón de historia) | `src/contenido/cartas.json` |
 | Carta de Las Barricas | `src/contenido/carta-barricas.json` |
 | Lectura del contenido (los componentes nunca leen los JSON directo) | `src/lib/contenido.ts` |
 | Carta: `obtenerCarta()` hoy lee el JSON; mañana, el panel de Zapan | `src/lib/carta.ts` |
