@@ -13,6 +13,15 @@ El README explica la estructura; acá van las reglas de trabajo.
 - Datos pendientes entre corchetes (`[Dirección ...]`): la web no los muestra. Nunca publicar un `[`.
 - Textos en español rioplatense, nombres de archivos y código en español como el resto del repo.
 
+## Cómo trabajamos: planificar en Claude Desktop, ejecutar en VS Code
+
+1. **Claude Desktop planifica.** Cada tarea se baja a uno o más prompts numerados en
+   `.claude/prompts/NN-tema-corto.md` (ej. `03-carta-barricas-smaalacarta.md`), en orden de ejecución.
+2. **Claude en VS Code ejecuta** un prompt por vez, en su propia rama, siguiendo el flujo de git de abajo.
+3. Cada prompt dice: objetivo, archivos a tocar, criterios de "terminado", **qué skills o agentes usar**
+   (solo los que estén instalados de verdad, con `/plugin` o en `.claude/agents/`) y cómo verificarlo.
+4. Al terminar un prompt, se marca como hecho en su primera línea (`Estado: hecho`, con fecha y commit).
+
 ## Flujo de git (lo maneja Claude)
 
 1. Antes de empezar: `git switch main && git pull` (el cliente edita desde Pages CMS y eso commitea en `main`).
