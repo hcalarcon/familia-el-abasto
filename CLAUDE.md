@@ -40,6 +40,16 @@ No usar SSH: el remoto es HTTPS (`https://github.com/familiaelabasto/familia-el-
 - `contenido`: textos, datos de locales, carta, páginas y blog (JSON / Markdown + `.pages.yml`).
 - `verificador`: revisa antes de mergear. No edita archivos.
 
+## Skills y plugins instalados (proyecto)
+
+- `frontend-design` (plugin oficial): para cualquier trabajo de diseño o maquetación.
+- `typescript-lsp` (plugin oficial): diagnósticos de TypeScript mientras se edita.
+  Necesita `typescript-language-server` instalado global (`npm i -g typescript-language-server typescript`).
+- `seo-local` (skill propia, `.claude/skills/seo-local/`): reglas de SEO local y datos para IA.
+
+Están declarados en `.claude/settings.json`; Claude Code en VS Code los ofrece al abrir el repo.
+No nombrar en los prompts skills que no estén en esta lista.
+
 ## Comandos
 
 ```bash
