@@ -43,6 +43,10 @@ const jsonLd = datosEstructurados ? JSON.stringify(datosEstructurados).replace(/
     <meta property="og:description" content={descripcion} />
     {canonica && <meta property="og:url" content={canonica} />}
     {imagenAbsoluta && <meta property="og:image" content={imagenAbsoluta} />}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="text/plain" title="Resumen para modelos de IA" href="/llms.txt" />
     {/* Fuentes servidas desde el propio sitio (public/fuentes/). Se precargan las dos que se ven primero. */}
     <link rel="preload" href="/fuentes/alfa-slab-one-400.woff2" as="font" type="font/woff2" crossorigin />

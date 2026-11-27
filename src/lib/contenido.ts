@@ -43,6 +43,8 @@ export interface Sitio {
 
 export interface EnConstruccion {
   aviso: string;
+  botonCartas: string;
+  linkCartas: string;
 }
 
 /** Textos de /cartas, la entrada del QR. */
@@ -52,6 +54,9 @@ export interface Cartas {
   historiaTitulo: string;
   historiaBajada: string;
   historiaLink: string;
+  webTitulo: string;
+  webBajada: string;
+  webLink: string;
 }
 
 export const sitio: Sitio = sitioJson;
