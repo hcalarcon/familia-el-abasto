@@ -4,7 +4,7 @@ Estado: pendiente
 
 ## Objetivo
 Que `/cartas` quede prolija en celular y escritorio antes de publicar, respetando el diseño aprobado
-(`El Abasto web nueva.pdf`) con los cambios ya pedidos: redes arriba, chip de ubicación,
+(fondo pizarrón arriba, tarjetas crema, botones oscuro y vino) con los cambios ya pedidos: redes arriba, chip de ubicación,
 Reservar por teléfono en Las Barricas y Zapan propio por local.
 
 ## Skills y agentes
@@ -26,9 +26,10 @@ Reservar por teléfono en Las Barricas y Zapan propio por local.
 4. Medir con Lighthouse (Chrome DevTools, modo móvil) sobre `npm run build && npm run preview`: Performance, Accessibility, Best Practices y SEO ≥ 95.
 
 ## Terminado cuando
-- [ ] Capturas en 375 / 1280 px adjuntas en el mensaje del commit o en el chat.
+- [ ] Capturas en 375 y 1280 px mostradas en el chat.
 - [ ] Lighthouse ≥ 95 en las cuatro categorías.
 - [ ] Verificador: ✅
+- [ ] Rama mergeada a `dev` (`git switch dev && git merge --no-ff pulir-cartas`) y borrada. **Sin push.**
 
 ## No tocar
 - La ruta `/cartas`, las redirecciones y los textos del cliente (salen de `src/contenido/`).
