@@ -1,5 +1,5 @@
 // Lista de todas las direcciones publicadas: la usan el sitemap y llms.txt.
-import { sitio, esPendiente } from './contenido';
+import { sitio, esPendiente, linkMapa, type Local } from './contenido';
 import { obtenerPaginas, obtenerNotas, fechaISO } from './publicaciones';
 
 export interface Entrada {
@@ -27,21 +27,33 @@ export function absoluta(ruta: string, site?: URL): string {
   return site ? new URL(ruta, site).href : ruta;
 }
 
+/** Dirección con la ciudad del local, si no la incluye ya. */
+function direccionCompleta(l: Local): string {
+  if (esPendiente(l.direccion)) return '';
+  const direccion = l.direccion.trim();
+  const ciudad = esPendiente(l.ciudad) ? '' : l.ciudad.trim();
+  if (!ciudad || direccion.toLowerCase().includes(ciudad.toLowerCase())) return direccion;
+  return `${direccion}, ${ciudad}`;
+}
+
 /** Datos de los locales en Markdown, para llms.txt y llms-full.txt. */
 export function datosDeLocales(): string {
   return sitio.locales
     .map((l) => {
       const datos = [
-        ['Dirección', l.direccion],
+        ['Dirección', direccionCompleta(l)],
         ['Teléfono', l.telefono],
         ['Horario', l.horario],
         ['Menú', l.menu],
+        ['Pedidos (Zapan)', l.zapan],
+        ['Mapa', linkMapa(l) ?? ''],
         ['Instagram', l.instagram],
         ['Facebook', l.facebook],
       ]
+        // esPendiente también descarta vacíos: no salen líneas "- Facebook: " sin dato.
         .filter(([, v]) => !esPendiente(v))
-        .map(([k, v]) => `- ${k}: ${v}`);
-      const descripcion = esPendiente(l.descripcion) ? '' : `${l.descripcion}\n\n`;
+        .map(([k, v]) => `- ${k}: ${v.trim()}`);
+      const descripcion = esPendiente(l.descripcion) ? '' : `${l.descripcion.trim()}\n\n`;
       return `### ${l.nombre}\n\n${descripcion}${datos.join('\n')}`;
     })
     .join('\n\n');
