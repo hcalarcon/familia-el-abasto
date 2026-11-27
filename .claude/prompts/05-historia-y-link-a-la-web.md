@@ -1,4 +1,4 @@
-Estado: pendiente
+Estado: hecho (2026-11-27, commit 5a82fda)
 
 # 05 · "Nuestra historia" y link a la web principal desde /cartas
 
@@ -30,10 +30,10 @@ Desde `/cartas` (la página del QR) se puede ir a:
 4. Agente verificador.
 
 ## Terminado cuando
-- [ ] Desde `/cartas` se llega a `/nuestra-historia` y a `/`, y desde `/` se vuelve a `/cartas`.
-- [ ] Todos los textos nuevos se editan desde Pages CMS.
-- [ ] Verificador: ✅
-- [ ] Rama mergeada a `dev` y borrada. **Sin push.**
+- [x] Desde `/cartas` se llega a `/nuestra-historia` y a `/`, y desde `/` se vuelve a `/cartas`.
+- [x] Todos los textos nuevos se editan desde Pages CMS.
+- [x] Verificador: ✅
+- [x] Rama mergeada a `dev` y borrada. **Sin push.**
 
 ## No tocar
 - La ruta `/cartas` y sus redirecciones.
