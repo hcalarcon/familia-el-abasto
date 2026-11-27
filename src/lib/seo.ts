@@ -24,6 +24,7 @@ function restaurante(local: Local, site?: URL) {
           '@type': 'PostalAddress',
           streetAddress: direccion.split(',')[0].trim(),
           addressLocality: sitio.ciudad,
+          postalCode: 'Q8370',
           addressRegion: 'Neuquén',
           addressCountry: 'AR',
         }
