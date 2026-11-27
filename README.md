@@ -21,6 +21,13 @@ tiene que funcionar siempre: no se renombra, no se borra y no se mueve.
 `/menus` (la ruta anterior), `/menu`, `/menú`, `/qr` y `/carta` redirigen a `/cartas`
 (`public/_redirects` en Cloudflare, y páginas de redirección en `src/pages/` para hostings sin `_redirects`).
 
+## Ramas
+
+- `main`: producción. Cada push publica el sitio. Pages CMS también guarda acá.
+- `dev`: donde se trabaja y se prueba (local y vista previa). Pasa a `main` cuando está aprobado.
+
+El detalle del flujo está en `CLAUDE.md`.
+
 ## Levantarlo en local
 
 Hace falta Node 22.23.4 o más nuevo.

@@ -20,7 +20,7 @@ Qué tiene que quedar funcionando, en una o dos oraciones.
 - ...
 
 ## Pasos
-1. git switch main && git pull && git switch -c <rama>
+1. git switch dev && git switch -c <rama> dev
 2. ...
 
 ## Terminado cuando

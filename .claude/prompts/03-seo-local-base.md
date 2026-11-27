@@ -17,7 +17,7 @@ listo para sumar en el futuro la sucursal de Buenos Aires sin rehacer nada.
 - `src/pages/llms.txt.ts`, `src/pages/llms-full.txt.ts`, `src/lib/indice.ts`
 
 ## Pasos
-1. `git switch main && git pull && git switch -c seo-local-base`
+1. `git switch dev && git switch -c seo-local-base dev`
 2. Pasar `ciudad`, `provincia` y `codigoPostal` a cada local (hoy están fijos en `seo.ts`) y declararlos en `.pages.yml`.
 3. Agregar un campo de horario en formato schema (`horarioSchema`, ej. `Mo-Su 12:00-24:00`) y usarlo en `openingHours`.
 4. Cargar `descripcion` de El Abasto y Las Barricas (pedirle el texto a Herni; no inventar).

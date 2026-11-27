@@ -16,7 +16,7 @@ Reservar por teléfono en Las Barricas y Zapan propio por local.
 - `src/layouts/Base.astro` (solo si hace falta para fuentes o variables)
 
 ## Pasos
-1. `git switch main && git pull && git switch -c pulir-cartas`
+1. `git switch dev && git switch -c pulir-cartas dev`
 2. Revisar en 375 px, 768 px y 1280 px:
    - Fuentes Alfa Slab One, Work Sans y Caveat cargando (si no, evaluar servirlas locales en `public/fuentes/` para no depender de Google Fonts).
    - En escritorio, que las tres tarjetas queden alineadas (botones a la misma altura).

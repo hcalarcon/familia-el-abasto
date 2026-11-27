@@ -22,15 +22,22 @@ El README explica la estructura; acá van las reglas de trabajo.
    (solo los que estén instalados de verdad, con `/plugin` o en `.claude/agents/`) y cómo verificarlo.
 4. Al terminar un prompt, se marca como hecho en su primera línea (`Estado: hecho`, con fecha y commit).
 
-## Flujo de git (lo maneja Claude)
+## Ramas y flujo de git (lo maneja Claude)
 
-1. Antes de empezar: `git switch main && git pull` (el cliente edita desde Pages CMS y eso commitea en `main`).
-2. Cada tarea en su rama: `git switch -c <tema-corto>`.
+| Rama | Para qué | Se publica |
+| --- | --- | --- |
+| `main` | Producción. Solo recibe merges desde `dev`. El cliente también guarda acá desde Pages CMS. | Sí, cada push a `main` publica el sitio. |
+| `dev` | Donde se trabaja: en local (`npm run dev`) y en la vista previa. | No (vista previa cuando esté Cloudflare Pages). |
+
+1. Al empezar: `git switch dev` (y `git pull` cuando `dev` ya esté en GitHub) y traer lo que el cliente haya guardado en producción:
+   `git fetch origin && git merge origin/main`.
+2. Cambios chicos: commit directo en `dev`. Cambios grandes (un prompt entero): rama desde `dev`
+   (`git switch -c <tema> dev`) y merge de vuelta a `dev` cuando el verificador da ✅.
 3. Commits chicos con mensaje en español, en imperativo ("Agregar...", "Corregir...").
-4. Antes de mergear: correr el agente `verificador` (build + check + rutas del QR).
-5. Merge a `main` y `git push origin main` **solo con el OK explícito de Herni**:
-   cada push a `main` publica el sitio en producción.
-6. Después del merge, borrar la rama local.
+4. Probar en local: `npm run dev` y, antes de publicar, `npm run build && npm run preview`.
+5. Pasar a producción **solo con el OK explícito de Herni**:
+   `git switch main && git pull && git merge --no-ff dev && git push origin main`, y después `git switch dev`.
+6. `git push origin dev` también se hace solo cuando Herni lo pide.
 
 No usar SSH: el remoto es HTTPS (`https://github.com/familiaelabasto/familia-el-abasto.git`).
 
