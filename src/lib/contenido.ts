@@ -2,6 +2,7 @@
 // Los componentes nunca leen los JSON directamente: siempre pasan por acá.
 import sitioJson from '../contenido/sitio.json';
 import enConstruccionJson from '../contenido/en-construccion.json';
+import cartasJson from '../contenido/cartas.json';
 
 export interface Local {
   nombre: string;
@@ -12,6 +13,8 @@ export interface Local {
   /** Descripción para Google y modelos de IA. */
   descripcion: string;
   direccion: string;
+  /** Link de Google Maps. Si queda vacío se arma solo con el nombre y la dirección. */
+  mapa: string;
   telefono: string;
   horario: string;
   foto: string;
@@ -42,8 +45,18 @@ export interface EnConstruccion {
   aviso: string;
 }
 
+/** Textos de /cartas, la entrada del QR. */
+export interface Cartas {
+  tituloRedes: string;
+  tituloLocales: string;
+  historiaTitulo: string;
+  historiaBajada: string;
+  historiaLink: string;
+}
+
 export const sitio: Sitio = sitioJson;
 export const enConstruccion: EnConstruccion = enConstruccionJson;
+export const cartas: Cartas = cartasJson;
 
 /** Un dato entre corchetes es un dato que todavía falta confirmar. */
 export function esPendiente(valor: string | undefined): boolean {
@@ -62,4 +75,15 @@ export function linkTelefono(telefono: string): string | null {
   digitos = digitos.replace(/^0/, '');
   if (digitos.length < 8) return null;
   return `tel:+54${digitos}`;
+}
+
+/**
+ * Link a Google Maps del local: el cargado en el panel o, si no hay,
+ * una búsqueda por nombre y dirección. Devuelve null si falta la dirección.
+ */
+export function linkMapa(local: Local): string | null {
+  if (!esPendiente(local.mapa)) return local.mapa.trim();
+  if (esPendiente(local.direccion)) return null;
+  const consulta = `${local.nombre}, ${local.direccion}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consulta)}`;
 }

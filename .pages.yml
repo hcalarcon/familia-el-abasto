@@ -190,6 +190,11 @@ content:
           - name: direccion
             label: Dirección
             type: string
+            description: Calle y número, ciudad. Ej. "Av. San Martín 1234, San Martín de los Andes". Se ve en el chip de ubicación.
+          - name: mapa
+            label: Link de Google Maps (opcional)
+            type: string
+            description: En Google Maps, "Compartir" → "Copiar vínculo". Si queda vacío, el chip busca el local por nombre y dirección.
           - name: telefono
             label: Teléfono
             type: string
@@ -204,7 +209,7 @@ content:
           - name: zapan
             label: Link para pedir en Zapan
             type: string
-            description: Dirección completa, empezando con https://. Si queda vacío, el segundo botón es "Reservar" con el teléfono.
+            description: El link de Zapan de este local, empezando con https://. Si queda vacío, el segundo botón es "Reservar" y llama al teléfono.
           - name: instagram
             label: Instagram
             type: string
@@ -214,8 +219,31 @@ content:
             type: string
             description: Dirección completa, empezando con https://
 
+  - name: cartas
+    label: Textos de /cartas (la página del QR)
+    type: file
+    path: src/contenido/cartas.json
+    format: json
+    fields:
+      - name: tituloRedes
+        label: Título de las redes
+        type: string
+      - name: tituloLocales
+        label: Título sobre los locales
+        type: string
+      - name: historiaTitulo
+        label: Título del botón de historia
+        type: string
+      - name: historiaBajada
+        label: Texto chico del botón de historia
+        type: string
+      - name: historiaLink
+        label: Link del botón de historia
+        type: string
+        description: Una página del sitio, ej. /nuestra-historia. Si la página no existe, el botón no se muestra.
+
   - name: en-construccion
-    label: Página "en construcción" (/ y /cartas)
+    label: Página "en construcción" (/)
     type: file
     path: src/contenido/en-construccion.json
     format: json
