@@ -1,4 +1,4 @@
-Estado: pendiente
+Estado: hecho (2026-11-28, commit be6f935)
 
 # 06 · Mejorar la UI de escritorio de /cartas y /barricas
 
@@ -31,8 +31,8 @@ En celular (hasta 767 px) no cambia nada. Todo va en media queries de 768 px o m
 4. Verificador. Merge a `dev`, borrar la rama. **Sin push.**
 
 ## Terminado cuando
-- [ ] /barricas en dos columnas desde 1024 px, con índice sticky que marca la sección visible.
-- [ ] /cartas con fotos 3:2 (o 16:9 avisado), logo sobre la foto y títulos alineados, historia y web como tarjetas.
-- [ ] Capturas en 1280 y 1440 px, y 375 px igual que antes.
-- [ ] Verificador: ✅
-- [ ] Rama mergeada a `dev` y borrada. **Sin push.**
+- [x] /barricas en dos columnas desde 1024 px, con índice sticky que marca la sección visible.
+- [x] /cartas con fotos 3:2 (o 16:9 avisado), logo sobre la foto y títulos alineados, historia y web como tarjetas.
+- [x] Capturas en 1280 y 1440 px, y 375 px igual que antes.
+- [x] Verificador: ✅
+- [x] Rama mergeada a `dev` y borrada. **Sin push.**
