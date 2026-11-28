@@ -93,20 +93,24 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
           <li>
             <article class="local" aria-labelledby={`local-${i}`}>
               {local.foto && (
-                <img
-                  class="local__foto"
-                  src={local.foto}
-                  alt={local.fotoAlt}
-                  width="1042"
-                  height="386"
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  fetchpriority={i === 0 ? 'high' : undefined}
-                  decoding="async"
-                />
+                <div class="local__media">
+                  <img
+                    class="local__foto"
+                    src={local.foto}
+                    alt={local.fotoAlt}
+                    width="1042"
+                    height="386"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={i === 0 ? 'high' : undefined}
+                    decoding="async"
+                  />
+                  {/* En escritorio el logo va chico sobre la foto (y sale del encabezado): los títulos quedan alineados. */}
+                  {local.logo && <img class="local__sello" src={local.logo} alt={local.logoAlt} width="56" height="56" loading={i === 0 ? 'eager' : 'lazy'} />}
+                </div>
               )}
               <div class="local__cuerpo">
                 <div class="local__encabezado">
-                  {local.logo && <img class="local__logo" src={local.logo} alt={local.logoAlt} width="56" height="56" loading={i === 0 ? 'eager' : 'lazy'} />}
+                  {local.logo && <img class:list={['local__logo', { 'local__logo--con-foto': local.foto }]} src={local.logo} alt={local.logoAlt} width="56" height="56" loading={i === 0 ? 'eager' : 'lazy'} />}
                   <div>
                     <h3 id={`local-${i}`}>{local.nombre}</h3>
                     {local.linea && <p class="local__linea">{local.linea}</p>}
@@ -338,7 +342,7 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
       grid-template-rows: subgrid;
       row-gap: 0;
     }
-    .local__foto { grid-row: 1; }
+    .local__media { grid-row: 1; }
     .local__cuerpo {
       display: grid;
       grid-row: 2 / -1;
@@ -416,5 +420,44 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
   @media (min-width: 48rem) {
     .portada { padding-block: 3.5rem 2.75rem; }
     .cuerpo { padding-top: 2.5rem; }
+  }
+
+  /* El sello del logo sobre la foto existe solo para escritorio; en celular el logo va en el encabezado. */
+  .local__sello { display: none; }
+
+  /* Escritorio: fotos más altas, logo sobre la foto y los enlaces de abajo como tarjetas livianas. */
+  @media (min-width: 64rem) {
+    .local__media { position: relative; }
+    .local__foto { aspect-ratio: 3 / 2; }
+    .local__sello {
+      display: block;
+      position: absolute;
+      left: 0.75rem;
+      bottom: 0.75rem;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--tarjeta);
+      border: 2px solid var(--tarjeta);
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.35);
+    }
+    .local__logo--con-foto { display: none; }
+
+    .mas ul { grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1rem; }
+    .historia {
+      height: 100%;
+      padding: 1.25rem 1.5rem;
+      background: var(--tarjeta);
+      color: var(--pizarron);
+      border: 1px solid #e4dccd;
+      transition: border-color 0.15s ease;
+    }
+    .historia:is(:hover, :focus-visible) { border-color: #c9bba3; }
+    .historia svg { color: var(--vino); }
+    .historia__bajada { color: var(--texto-suave); }
+  }
+  @media (min-width: 64rem) and (prefers-reduced-motion: reduce) {
+    .historia, .historia svg { transition: none; }
+    .historia:is(:hover, :focus-visible) svg { transform: none; }
   }
 </style>
