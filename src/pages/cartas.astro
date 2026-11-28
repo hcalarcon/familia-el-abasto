@@ -2,7 +2,7 @@
 // Entrada del QR impreso en los folletos. ESTA RUTA NO SE CAMBIA NUNCA.
 // Todo el texto sale de src/contenido/ (sitio.json y cartas.json), editable desde Pages CMS.
 import Base from '../layouts/Base.astro';
-import { sitio, cartas, esPendiente, linkTelefono, linkMapa } from '../lib/contenido';
+import { sitio, cartas, esPendiente, linkTelefono, linkMapa, linkDeMenu } from '../lib/contenido';
 import { obtenerNotas, obtenerPaginas } from '../lib/publicaciones';
 import { datosDelGrupo } from '../lib/seo';
 
@@ -26,6 +26,7 @@ const locales = sitio.locales.map((local) => {
   const tel = linkTelefono(local.telefono);
   const zapan = mostrar(local.zapan);
   const direccion = mostrar(local.direccion);
+  const menu = mostrar(linkDeMenu(local) ?? '');
   return {
     nombre: local.nombre,
     linea: mostrar(local.linea),
@@ -33,8 +34,9 @@ const locales = sitio.locales.map((local) => {
     fotoAlt: mostrar(local.fotoAlt),
     logo: mostrar(local.logo),
     logoAlt: mostrar(local.logoAlt),
-    textoMenu: mostrar(local.textoMenu) || 'Ver menú',
-    menu: mostrar(local.menu),
+    // Si el local tiene carta propia en el sitio (/barricas), el botón va ahí; si no, al menú externo.
+    menu,
+    textoMenu: mostrar(local.textoMenu) || (menu.startsWith('/') ? 'Ver carta' : 'Ver menú'),
     zapan,
     telefono: mostrar(local.telefono),
     tel,
@@ -123,7 +125,7 @@ const nombres = sitio.locales.map((l) => l.nombre).join(', ').replace(/, ([^,]*)
                 {(local.menu || local.zapan || local.reservar) && (
                   <div class="local__acciones">
                     {local.menu && (
-                      <a class="boton boton--oscuro" href={local.menu} rel="noopener">
+                      <a class="boton boton--oscuro" href={local.menu} rel={local.menu.startsWith('/') ? undefined : 'noopener'}>
                         {local.textoMenu}<span class="visualmente-oculto"> de {local.nombre}</span>
                       </a>
                     )}

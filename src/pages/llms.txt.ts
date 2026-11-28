@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ site }) => {
   const secciones = [
     `# ${sitio.nombre}`,
     `> ${sitio.historia} Restaurantes en ${sitio.ciudad}, Neuquén, Argentina.`,
-    `## Locales\n\n${datosDeLocales()}`,
+    `## Locales\n\n${datosDeLocales(site)}`,
     `## Páginas principales\n\n${lista('principal')}`,
   ];
   const paginas = lista('pagina');
