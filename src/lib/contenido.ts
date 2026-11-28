@@ -3,6 +3,7 @@
 import sitioJson from '../contenido/sitio.json';
 import enConstruccionJson from '../contenido/en-construccion.json';
 import cartasJson from '../contenido/cartas.json';
+import { rutaDeCarta } from './carta';
 
 export interface Local {
   nombre: string;
@@ -36,6 +37,11 @@ export interface Local {
   /** "Ver menú" o "Ver carta". */
   textoMenu: string;
   menu: string;
+  /**
+   * Slug de la carta en smaalacarta ("las-barricas-del-abasto").
+   * Si tiene, "Ver carta" lleva a la página interna de la carta (ej. /barricas) en vez de `menu`.
+   */
+  cartaSlug: string;
   zapan: string;
   instagram: string;
   facebook: string;
@@ -103,4 +109,14 @@ export function linkMapa(local: Local): string | null {
   if (esPendiente(local.direccion)) return null;
   const consulta = `${local.nombre}, ${local.direccion}`;
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consulta)}`;
+}
+
+/**
+ * A dónde lleva "Ver carta" / "Ver menú": la página interna de la carta si el local
+ * tiene `cartaSlug` (ej. "/barricas"); si no, el link de `menu`. null si no hay ninguno.
+ */
+export function linkDeMenu(local: Local): string | null {
+  const interna = rutaDeCarta(local.cartaSlug);
+  if (interna) return interna;
+  return esPendiente(local.menu) ? null : local.menu.trim();
 }

@@ -222,7 +222,11 @@ content:
           - name: menu
             label: Link al menú
             type: string
-            description: Dirección completa, empezando con https://
+            description: Dirección completa, empezando con https://. Si el local tiene carta en la web (campo de abajo), este link no se usa.
+          - name: cartaSlug
+            label: Carta en la web (código de smaalacarta)
+            type: string
+            description: 'El código de la carta en smaalacarta, ej. "las-barricas-del-abasto". Los platos y precios se editan en smaalacarta y la web los trae sola al publicarse. Si tiene código, "Ver carta" lleva a la página de la carta dentro de la web. Si queda vacío, el botón usa el "Link al menú".'
           - name: zapan
             label: Link para pedir en Zapan
             type: string
@@ -287,55 +291,3 @@ content:
         label: Link del botón a las cartas
         type: string
         description: Conviene dejarlo en /cartas, que es la página del QR. Si queda vacío, lleva a /cartas.
-
-  - name: carta-barricas
-    label: Carta de Las Barricas
-    type: file
-    path: src/contenido/carta-barricas.json
-    format: json
-    fields:
-      - name: categorias
-        label: Categorías
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{nombre}"
-        fields:
-          - name: nombre
-            label: Nombre de la categoría
-            type: string
-            required: true
-          - name: nota
-            label: Nota (opcional)
-            type: string
-          - name: grupos
-            label: Grupos de platos
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{titulo}"
-            fields:
-              - name: titulo
-                label: Título del grupo (opcional)
-                type: string
-              - name: platos
-                label: Platos
-                type: object
-                list:
-                  collapsible:
-                    collapsed: true
-                    summary: "{nombre}"
-                fields:
-                  - name: nombre
-                    label: Plato
-                    type: string
-                    required: true
-                  - name: descripcion
-                    label: Descripción (opcional)
-                    type: text
-                  - name: precio
-                    label: Precio
-                    type: string
-                    description: Por ejemplo $ 12.500. Si queda vacío se muestra "Consultar".

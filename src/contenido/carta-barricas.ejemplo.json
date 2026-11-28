@@ -1,0 +1,33 @@
+{
+  "slug": "las-barricas-del-abasto",
+  "nombre": "Las Barricas del Abasto (carta de ejemplo)",
+  "actualizado": null,
+  "moneda": "ARS",
+  "categorias": [
+    {
+      "nombre": "Entradas (ejemplo)",
+      "descripcion": "Categoría de ejemplo: solo se ve en npm run dev si smaalacarta no responde.",
+      "platos": [
+        { "nombre": "Plato de ejemplo con descripción", "descripcion": "Descripción de ejemplo, un poco más larga, para ver cómo corta en dos renglones en el celular.", "precio": 12500, "foto": null, "agotado": false },
+        { "nombre": "Plato de ejemplo sin descripción", "descripcion": null, "precio": 8000, "foto": null, "agotado": false },
+        { "nombre": "Plato de ejemplo agotado", "descripcion": null, "precio": 9500, "foto": null, "agotado": true }
+      ]
+    },
+    {
+      "nombre": "Principales (ejemplo)",
+      "descripcion": null,
+      "platos": [
+        { "nombre": "Plato de ejemplo sin precio", "descripcion": "Sin precio: se muestra \"Consultar\".", "precio": null, "foto": null, "agotado": false },
+        { "nombre": "Plato de ejemplo con un nombre bastante largo para probar el corte de línea", "descripcion": null, "precio": 24000, "foto": null, "agotado": false },
+        { "nombre": "Plato de ejemplo con foto", "descripcion": "Usa una foto del sitio solo para probar el diseño con imagen.", "precio": 18000, "foto": "/fotos/luisa-plato.webp", "agotado": false }
+      ]
+    },
+    {
+      "nombre": "Postres (ejemplo)",
+      "descripcion": null,
+      "platos": [
+        { "nombre": "Postre de ejemplo", "descripcion": null, "precio": 7000, "foto": null, "agotado": false }
+      ]
+    }
+  ]
+}
