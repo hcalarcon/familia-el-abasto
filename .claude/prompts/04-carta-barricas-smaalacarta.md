@@ -1,4 +1,4 @@
-Estado: pendiente
+Estado: hecho (2026-11-28, commit c610b1a)
 
 # 04 · Carta de Las Barricas desde smaalacarta
 
@@ -52,11 +52,11 @@ El botón "Ver carta" de Las Barricas en `/cartas` lleva a `/barricas`.
 4. Merge a `dev` y borrar la rama. **Sin push.**
 
 ## Terminado cuando
-- [ ] `/barricas` muestra la carta (de ejemplo en dev mientras la API dé 429).
-- [ ] `npm run build` falla con mensaje claro si la API no responde 200.
-- [ ] "Ver carta" de Las Barricas en `/cartas` lleva a `/barricas`.
-- [ ] JSON-LD `Menu` y `/barricas` en sitemap, `llms.txt` y `llms-full.txt`.
-- [ ] Verificador: ✅
-- [ ] Rama mergeada a `dev` y borrada. **Sin push.**
+- [x] `/barricas` muestra la carta (de ejemplo en dev mientras la API dé 429).
+- [x] `npm run build` falla con mensaje claro si la API no responde 200.
+- [x] "Ver carta" de Las Barricas en `/cartas` lleva a `/barricas`.
+- [x] JSON-LD `Menu` y `/barricas` en sitemap, `llms.txt` y `llms-full.txt`.
+- [x] Verificador: ✅
+- [x] Rama mergeada a `dev` y borrada. **Sin push.**
 
 CARTAS_API por defecto: https://api.smaalacarta.com.ar.
