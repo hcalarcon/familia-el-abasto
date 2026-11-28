@@ -89,56 +89,113 @@ const descripcion = `${titulo} en ${ciudad}: platos y precios. ${
     </nav>
   )}
 
-  <main class="carta">
-    {categorias.map((c) => (
-      <section class="categoria" id={c.id} aria-labelledby={`titulo-${c.id}`}>
-        <h2 id={`titulo-${c.id}`}>{c.nombre}</h2>
-        {c.descripcion && <p class="categoria__descripcion">{c.descripcion}</p>}
-        <ul class="platos" role="list">
-          {c.platos.map((p) => (
-            <li class:list={['plato', { 'plato--agotado': p.agotado, 'plato--con-foto': p.foto }]}>
-              {p.foto && (
-                <img class="plato__foto" src={p.foto} alt={p.nombre} width="64" height="64" loading="lazy" decoding="async" />
-              )}
-              <div class="plato__texto">
-                <h3 class="plato__nombre">
-                  <span class="plato__atenuable">{p.nombre}</span>
-                  {p.agotado && <span class="plato__agotado">Agotado</span>}
-                </h3>
-                {p.descripcion && <p class="plato__descripcion plato__atenuable">{p.descripcion}</p>}
-              </div>
-              <p class="plato__precio plato__atenuable">
-                {p.agotado && p.conPrecio ? (
-                  <s><span class="visualmente-oculto">Precio habitual: </span>{p.precio}</s>
-                ) : (
-                  <>
-                    <span class="visualmente-oculto">Precio: </span>
-                    {p.precio}
-                  </>
-                )}
-              </p>
-            </li>
+  {/* En celular y tablet este contenedor no hace nada; en escritorio arma las dos columnas. */}
+  <div class="cuerpo">
+    {categorias.length > 1 && (
+      <nav class="indice" aria-label="Categorías">
+        <p class="indice__titulo" aria-hidden="true">En la carta</p>
+        <ul role="list">
+          {categorias.map((c) => (
+            <li><a href={`#${c.id}`}>{c.nombre}</a></li>
           ))}
         </ul>
-      </section>
-    ))}
+      </nav>
+    )}
 
-    <div class="acciones">
-      {tel && (
-        <a class="boton boton--borde" href={tel}>
-          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" /></svg>
-          <span>Reservar<span class="boton__dato">{telefono}</span></span>
-          <span class="visualmente-oculto"> en {local.nombre}</span>
-        </a>
-      )}
-      <a class="boton boton--oscuro" href="/cartas">Volver a las cartas</a>
-    </div>
-  </main>
+    <main class="carta">
+      {categorias.map((c) => (
+        <section class="categoria" id={c.id} aria-labelledby={`titulo-${c.id}`}>
+          <h2 id={`titulo-${c.id}`}>{c.nombre}</h2>
+          {c.descripcion && <p class="categoria__descripcion">{c.descripcion}</p>}
+          <ul class="platos" role="list">
+            {c.platos.map((p) => (
+              <li class:list={['plato', { 'plato--agotado': p.agotado, 'plato--con-foto': p.foto }]}>
+                {p.foto && (
+                  <img class="plato__foto" src={p.foto} alt={p.nombre} width="64" height="64" loading="lazy" decoding="async" />
+                )}
+                <div class="plato__texto">
+                  <h3 class="plato__nombre">
+                    <span class="plato__titulo"><span class="plato__atenuable">{p.nombre}</span>{p.agotado && <span class="plato__agotado">Agotado</span>}</span>
+                  </h3>
+                  {p.descripcion && <p class="plato__descripcion plato__atenuable">{p.descripcion}</p>}
+                </div>
+                <p class="plato__precio plato__atenuable">
+                  {p.agotado && p.conPrecio ? (
+                    <s><span class="visualmente-oculto">Precio habitual: </span>{p.precio}</s>
+                  ) : (
+                    <>
+                      <span class="visualmente-oculto">Precio: </span>
+                      {p.precio}
+                    </>
+                  )}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      <div class="acciones">
+        {tel && (
+          <a class="boton boton--borde" href={tel}>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" /></svg>
+            <span>Reservar<span class="boton__dato">{telefono}</span></span>
+            <span class="visualmente-oculto"> en {local.nombre}</span>
+          </a>
+        )}
+        <a class="boton boton--oscuro" href="/cartas">Volver a las cartas</a>
+      </div>
+    </main>
+  </div>
 
   <footer class="pie">
     <p>{[local.nombre, ciudad].join(' · ')}</p>
   </footer>
 </Base>
+
+<script>
+  // Escritorio: el índice de la izquierda marca la categoría que se está leyendo.
+  // Sin JS (o sin IntersectionObserver) queda como lista de anclas común.
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('.indice a')].map((a) => [a.hash.slice(1), a]));
+  const secciones = [...document.querySelectorAll<HTMLElement>('.categoria')].filter((s) => links.has(s.id));
+
+  if (secciones.length && 'IntersectionObserver' in window) {
+    // La actual es la última categoría cuyo comienzo ya pasó una línea imaginaria en la parte de arriba
+    // de la pantalla (35 % del alto, hasta 320 px: en pantallas muy altas no baja de más).
+    const linea = () => Math.min(window.innerHeight * 0.35, 320);
+    let marcada: string | undefined;
+
+    const actualizar = () => {
+      const alto = document.documentElement.scrollHeight;
+      // Arriba de todo, la primera; al llegar al final, la última (quizá nunca alcanza la línea).
+      const actual =
+        window.scrollY < 1
+          ? secciones[0]
+          : window.innerHeight + window.scrollY >= alto - 2
+            ? secciones[secciones.length - 1]
+            : secciones.filter((s) => s.getBoundingClientRect().top <= linea()).pop();
+      if (actual?.id === marcada) return;
+      marcada = actual?.id;
+      links.forEach((a, id) => (id === marcada ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    };
+
+    // Los observadores solo avisan cuándo recalcular: cuando una categoría cruza la línea o asoma el pie.
+    let porLinea: IntersectionObserver | undefined;
+    const observar = () => {
+      porLinea?.disconnect();
+      porLinea = new IntersectionObserver(actualizar, { rootMargin: `0px 0px ${linea() - window.innerHeight}px 0px` });
+      secciones.forEach((s) => porLinea?.observe(s));
+    };
+    observar();
+    let espera: number | undefined;
+    window.addEventListener('resize', () => {
+      clearTimeout(espera);
+      espera = window.setTimeout(observar, 200);
+    });
+    const pie = document.querySelector('.pie');
+    if (pie) new IntersectionObserver(actualizar, { threshold: [0, 1] }).observe(pie);
+  }
+</script>
 
 <style>
   /* Portada pizarrón, más baja que la de /cartas: acá lo importante es la carta. */
@@ -347,5 +404,89 @@ const descripcion = `${titulo} en ${ciudad}: platos y precios. ${
     .categorias ul { mask-image: none; flex-wrap: wrap; }
     h2 { font-size: 1.75rem; }
     .plato { padding-block: 1rem; }
+  }
+
+  /* El índice lateral es solo para escritorio. */
+  .indice { display: none; }
+
+  /* Escritorio: índice de categorías fijo a la izquierda y la carta a la derecha. */
+  @media (min-width: 64rem) {
+    .categorias { display: none; }
+
+    .cuerpo {
+      display: grid;
+      grid-template-columns: 15rem minmax(0, 1fr);
+      column-gap: 4rem;
+      max-width: 68.75rem;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 0;
+    }
+
+    .indice {
+      display: block;
+      position: sticky;
+      top: 1.5rem;
+      align-self: start;
+      max-height: calc(100vh - 3rem);
+      overflow-y: auto;
+      /* Alinea el título del índice con el primer título de la carta. */
+      padding-top: 1.5rem;
+      scrollbar-width: thin;
+    }
+    .indice__titulo {
+      margin: 0 0 0.75rem;
+      padding-top: 0.35rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--texto-suave);
+    }
+    .indice ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-left: 1px solid #e4dccd;
+    }
+    .indice a {
+      display: block;
+      margin-left: -1px;
+      padding: 0.4rem 0.75rem 0.4rem 1rem;
+      border-left: 3px solid transparent;
+      color: var(--texto-suave);
+      font-size: 0.9375rem;
+      line-height: 1.3;
+      text-decoration: none;
+    }
+    .indice a:hover { color: var(--pizarron); border-left-color: #c9bba3; }
+    .indice a:focus-visible { outline: 3px solid var(--vino); outline-offset: -3px; }
+    .indice a[aria-current='true'] { color: var(--vino); border-left-color: var(--vino); font-weight: 600; }
+
+    .carta { max-width: none; margin: 0; padding: 0 0 1rem; }
+    /* Sin la barra de chips arriba, el salto deja el título casi pegado al borde. */
+    .categoria { scroll-margin-top: 0; }
+
+    /* Puntos guía entre el nombre y el precio, sobre la línea base del renglón.
+       Solo ocupan el espacio que sobra: si el nombre necesita dos renglones o más, no aparecen
+       (un tramito de puntos colgado al final del primer renglón queda desprolijo). */
+    .plato { column-gap: 0.5rem; }
+    .plato__nombre { display: flex; align-items: first baseline; }
+    .plato__titulo { flex: 0 1 auto; min-width: 0; }
+    .plato__nombre::after {
+      content: '';
+      flex: 1 1 0;
+      min-width: 0;
+      margin-left: 0.5rem;
+      border-bottom: 1px dotted #b3a78f;
+    }
+    .plato--agotado .plato__nombre::after { opacity: 0.55; }
+
+    .acciones {
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+      margin-top: 2.5rem;
+    }
+  }
+  @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+    .indice a { transition: color 0.15s ease, border-color 0.15s ease; }
   }
 </style>
