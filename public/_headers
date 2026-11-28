@@ -2,6 +2,10 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Las fuentes de /fuentes/ no cambian: si se actualiza una, se le cambia el nombre al archivo.
+/fuentes/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

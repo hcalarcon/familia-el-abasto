@@ -8,7 +8,7 @@ export const GET: APIRoute = async ({ site }) => {
   const partes = [
     `# ${sitio.nombre}`,
     `> ${sitio.historia}`,
-    `## Locales\n\n${datosDeLocales()}`,
+    `## Locales\n\n${datosDeLocales(site)}`,
     ...conTexto.map(
       (e) => `---\n\n## ${e.titulo}\n\nURL: ${absoluta(e.ruta, site)}${e.fecha ? `\nFecha: ${e.fecha}` : ''}\n\n${e.cuerpo!.trim()}`,
     ),

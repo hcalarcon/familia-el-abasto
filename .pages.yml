@@ -190,6 +190,23 @@ content:
           - name: direccion
             label: Dirección
             type: string
+            description: Calle y número, ciudad. Ej. "Av. San Martín 1234, San Martín de los Andes". Se ve en el chip de ubicación.
+          - name: ciudad
+            label: Ciudad del local
+            type: string
+            description: Ej. "San Martín de los Andes". Es para Google; si queda vacío se usa la ciudad del grupo.
+          - name: provincia
+            label: Provincia del local
+            type: string
+            description: Ej. "Neuquén". Es para Google.
+          - name: codigoPostal
+            label: Código postal del local
+            type: string
+            description: Ej. "Q8370". Es para Google.
+          - name: mapa
+            label: Link de Google Maps (opcional)
+            type: string
+            description: En Google Maps, "Compartir" → "Copiar vínculo". Si queda vacío, el chip busca el local por nombre y dirección.
           - name: telefono
             label: Teléfono
             type: string
@@ -197,14 +214,23 @@ content:
           - name: horario
             label: Horario
             type: string
+            description: Como se lee en la web. Ej. "Todos los días de 12 a 00 h".
+          - name: horarioSchema
+            label: Horario para Google
+            type: string
+            description: 'Distinto del horario de arriba: este lo lee Google y va en un formato fijo. Días en inglés abreviados (Mo Tu We Th Fr Sa Su) y horas de 24 h. Ej. "Mo-Su 12:00-24:00" (todos los días de 12 a 00 h). Si cierra después de medianoche, la hora de cierre es la del día siguiente, ej. "Mo-Su 11:00-02:00". Varios horarios se separan con coma, ej. "Mo-Fr 12:00-16:00, Sa-Su 12:00-24:00". Si no respeta el formato, no se publica.'
           - name: menu
             label: Link al menú
             type: string
-            description: Dirección completa, empezando con https://
+            description: Dirección completa, empezando con https://. Si el local tiene carta en la web (campo de abajo), este link no se usa.
+          - name: cartaSlug
+            label: Carta en la web (código de smaalacarta)
+            type: string
+            description: 'El código de la carta en smaalacarta, ej. "las-barricas-del-abasto". Los platos y precios se editan en smaalacarta y la web los trae sola al publicarse. Si tiene código, "Ver carta" lleva a la página de la carta dentro de la web. Si queda vacío, el botón usa el "Link al menú".'
           - name: zapan
             label: Link para pedir en Zapan
             type: string
-            description: Dirección completa, empezando con https://. Si queda vacío, el segundo botón es "Reservar" con el teléfono.
+            description: El link de Zapan de este local, empezando con https://. Si queda vacío, el segundo botón es "Reservar" y llama al teléfono.
           - name: instagram
             label: Instagram
             type: string
@@ -214,8 +240,41 @@ content:
             type: string
             description: Dirección completa, empezando con https://
 
+  - name: cartas
+    label: Textos de /cartas (la página del QR)
+    type: file
+    path: src/contenido/cartas.json
+    format: json
+    fields:
+      - name: tituloRedes
+        label: Título de las redes
+        type: string
+      - name: tituloLocales
+        label: Título sobre los locales
+        type: string
+      - name: historiaTitulo
+        label: Título del botón de historia
+        type: string
+      - name: historiaBajada
+        label: Texto chico del botón de historia
+        type: string
+      - name: historiaLink
+        label: Link del botón de historia
+        type: string
+        description: Una página del sitio, ej. /nuestra-historia. Si la página no existe, el botón no se muestra.
+      - name: webTitulo
+        label: Título del botón de la web
+        type: string
+      - name: webBajada
+        label: Texto chico del botón de la web
+        type: string
+      - name: webLink
+        label: Link del botón de la web
+        type: string
+        description: La página principal del sitio, ej. /. Si queda vacío, el botón no se muestra.
+
   - name: en-construccion
-    label: Página "en construcción" (/ y /cartas)
+    label: Página "en construcción" (/)
     type: file
     path: src/contenido/en-construccion.json
     format: json
@@ -224,55 +283,11 @@ content:
         label: Aviso debajo del nombre
         type: string
         description: Si queda vacío no se muestra.
-
-  - name: carta-barricas
-    label: Carta de Las Barricas
-    type: file
-    path: src/contenido/carta-barricas.json
-    format: json
-    fields:
-      - name: categorias
-        label: Categorías
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{nombre}"
-        fields:
-          - name: nombre
-            label: Nombre de la categoría
-            type: string
-            required: true
-          - name: nota
-            label: Nota (opcional)
-            type: string
-          - name: grupos
-            label: Grupos de platos
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{titulo}"
-            fields:
-              - name: titulo
-                label: Título del grupo (opcional)
-                type: string
-              - name: platos
-                label: Platos
-                type: object
-                list:
-                  collapsible:
-                    collapsed: true
-                    summary: "{nombre}"
-                fields:
-                  - name: nombre
-                    label: Plato
-                    type: string
-                    required: true
-                  - name: descripcion
-                    label: Descripción (opcional)
-                    type: text
-                  - name: precio
-                    label: Precio
-                    type: string
-                    description: Por ejemplo $ 12.500. Si queda vacío se muestra "Consultar".
+      - name: botonCartas
+        label: Texto del botón a las cartas
+        type: string
+        description: Ej. "Ver las cartas". Si queda vacío, se usa "Ver las cartas" (el botón siempre está, para no dejar a nadie sin salida).
+      - name: linkCartas
+        label: Link del botón a las cartas
+        type: string
+        description: Conviene dejarlo en /cartas, que es la página del QR. Si queda vacío, lleva a /cartas.
